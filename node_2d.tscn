@@ -1,0 +1,59 @@
+[gd_scene load_steps=8 format=3 uid="uid://4pqund3nukl7"]
+
+[ext_resource type="Script" uid="uid://dt3nc4our1mgp" path="res://node_2d.gd" id="1_epypp"]
+[ext_resource type="Script" uid="uid://bm058kqr2okw7" path="res://chr_1.gd" id="2_0hol4"]
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="3_q6r6c"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kdubu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_q6r6c")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d21ai"]
+size = Vector2(114, 110)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rj586"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_q6r6c")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4d7sh"]
+size = Vector2(112, 112)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_epypp")
+
+[node name="chr1" type="CharacterBody2D" parent="."]
+position = Vector2(211, 301)
+script = ExtResource("2_0hol4")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="chr1"]
+sprite_frames = SubResource("SpriteFrames_kdubu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="chr1"]
+position = Vector2(2, 0)
+shape = SubResource("RectangleShape2D_d21ai")
+
+[node name="mob" type="CharacterBody2D" parent="."]
+position = Vector2(968, 322)
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="mob"]
+sprite_frames = SubResource("SpriteFrames_rj586")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="mob"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_4d7sh")
