@@ -9,7 +9,7 @@ var hp_plyer = 100
 var hp_mob = 70
 
 #buat reefern UI
-@onready var keterngan = 
+@onready var keterngan = $UI/Panel/keterngaan
 @onready var serang = $UI/bar
 
 func _ready() -> void:
@@ -26,7 +26,7 @@ func start_player_trun() -> void:
 	serang.visible = true
 	
 # ngirim sinyaal kalo neken tomboll serang
-func _on_attack_button_pressed() -> void :
+func _on_serang_pressed() -> void:
 	if giliran != TrunState.player :return
 	
 	serang.visible = false # biar gak ganggu ui (ngumpetin)
@@ -72,7 +72,7 @@ func win_battel():
 	giliran = TrunState.win
 	update_iu_text("boleh-boleh")
 func los_battel():
-	giliran + TrunState.los
+	giliran = TrunState.los
 	update_ui_text("skill isu!!")
 	
 func update_ui_text(text_baru: String):
@@ -84,5 +84,4 @@ func _process(delta: float) -> void:
 	pass
 
 
-func _on_serang_pressed() -> void:
 	pass # Replace with function body.
