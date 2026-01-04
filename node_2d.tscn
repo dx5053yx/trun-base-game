@@ -1,11 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://4pqund3nukl7"]
+[gd_scene load_steps=5 format=3 uid="uid://4pqund3nukl7"]
 
 [ext_resource type="Texture2D" uid="uid://b2v4jxd07urt6" path="res://od_gargantua.png" id="1_0e48y"]
+[ext_resource type="Script" uid="uid://dt3nc4our1mgp" path="res://node_2d.gd" id="1_epypp"]
 [ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="3_q6r6c"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_epypp"]
 
 [node name="bettel" type="Node2D"]
+script = ExtResource("1_epypp")
 
 [node name="bacgroun" type="TextureRect" parent="."]
 offset_right = 4400.0
@@ -47,3 +49,5 @@ layout_mode = 2
 
 [node name="serang 2" type="Button" parent="UI/bar"]
 layout_mode = 2
+
+[connection signal="pressed" from="UI/bar/serang" to="." method="_on_serang_pressed"]

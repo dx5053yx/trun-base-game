@@ -9,7 +9,7 @@ var hp_plyer = 100
 var hp_mob = 70
 
 #buat reefern UI
-@onready var keterngan = $UI/Panel/keterngaan
+@onready var keterngan = 
 @onready var serang = $UI/bar
 
 func _ready() -> void:
@@ -82,3 +82,7 @@ func update_ui_text(text_baru: String):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+
+func _on_serang_pressed() -> void:
+	pass # Replace with function body.
