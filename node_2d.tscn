@@ -1,8 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://4pqund3nukl7"]
+[gd_scene load_steps=7 format=3 uid="uid://4pqund3nukl7"]
 
 [ext_resource type="Texture2D" uid="uid://b2v4jxd07urt6" path="res://od_gargantua.png" id="1_0e48y"]
 [ext_resource type="Script" uid="uid://dt3nc4our1mgp" path="res://node_2d.gd" id="1_epypp"]
 [ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="3_q6r6c"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_epypp"]
+bg_color = Color(0, 0.7140907, 0.42728698, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0hol4"]
+bg_color = Color(1, 0.35437098, 0.13555768, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_epypp"]
 
@@ -10,8 +16,10 @@
 script = ExtResource("1_epypp")
 
 [node name="bacgroun" type="TextureRect" parent="."]
-offset_right = 4400.0
-offset_bottom = 2475.0
+offset_left = -39.0
+offset_top = -27.0
+offset_right = 4361.0
+offset_bottom = 2448.0
 texture = ExtResource("1_0e48y")
 
 [node name="Marker2D" type="Marker2D" parent="."]
@@ -25,27 +33,47 @@ texture = ExtResource("3_q6r6c")
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+
+[node name="hp_char" type="ProgressBar" parent="UI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 3.634
+anchor_top = 1.468
+anchor_right = 4.458
+anchor_bottom = 1.797
+offset_right = 50.0
+offset_bottom = 27.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_epypp")
+
+[node name="hp_mob" type="ProgressBar" parent="UI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_right = 50.0
+offset_bottom = 27.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_0hol4")
+max_value = 50.0
 
 [node name="Panel" type="Panel" parent="UI"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
 
 [node name="keterngaan" type="Label" parent="UI/Panel"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_right = 50.0
+offset_bottom = 50.0
+scale = Vector2(2, 2)
 label_settings = SubResource("LabelSettings_epypp")
 
 [node name="bar" type="HBoxContainer" parent="UI"]
+clip_contents = true
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 20.0
+offset_bottom = 20.0
 
 [node name="serang" type="Button" parent="UI/bar"]
 layout_mode = 2
+text = "serang"
 
 [node name="serang 2" type="Button" parent="UI/bar"]
 layout_mode = 2
