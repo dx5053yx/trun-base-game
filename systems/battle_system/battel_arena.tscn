@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://c6oewytq8cxre"]
+
+[ext_resource type="Script" uid="uid://dtgviijjt66vn" path="res://systems/battle_system/battel_arena.gd" id="1_22jws"]
+
+[node name="BattelArena" type="Node2D" unique_id=838868993]
+script = ExtResource("1_22jws")
+
+[node name="background" type="TextureRect" parent="." unique_id=857072806]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="posisi_enmy" type="HBoxContainer" parent="." unique_id=614471419]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="posisi_plyr" type="HBoxContainer" parent="." unique_id=600246169]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="booton" type="Panel" parent="." unique_id=722201017]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="acction" type="VBoxContainer" parent="booton" unique_id=234674800]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="basic_atk" type="Button" parent="booton/acction" unique_id=1937568856]
+layout_mode = 2
+
+[node name="skill" type="Button" parent="booton/acction" unique_id=334346915]
+layout_mode = 2
+
+[node name="ultimate" type="Button" parent="booton/acction" unique_id=1141963484]
+layout_mode = 2

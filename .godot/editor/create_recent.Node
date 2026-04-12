@@ -1,11 +1,12 @@
+Button
+VBoxContainer
+Panel
+HBoxContainer
+TextureRect
 Label
 Camera2D
 ProgressBar
 Sprite2D
 CharacterBody2D
-Button
-HBoxContainer
-Panel
 Control
 Marker2D
-TextureRect

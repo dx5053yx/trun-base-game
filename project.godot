@@ -14,6 +14,10 @@ config/name="New Game Project"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+PartyDat="*uid://5vmd75xhjbyr"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
