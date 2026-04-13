@@ -29,8 +29,13 @@ offset_bottom = 40.0
 [node name="basic_atk" type="Button" parent="booton/acction" unique_id=1937568856]
 layout_mode = 2
 
-[node name="skill" type="Button" parent="booton/acction" unique_id=334346915]
+[node name="SkillMenu" type="VBoxContainer" parent="booton" unique_id=1123983832]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="skill" type="Button" parent="booton/SkillMenu" unique_id=2066805455]
 layout_mode = 2
 
-[node name="ultimate" type="Button" parent="booton/acction" unique_id=1141963484]
-layout_mode = 2
+[connection signal="pressed" from="booton/acction/basic_atk" to="." method="_on_basic_atk_pressed"]
+[connection signal="pressed" from="booton/SkillMenu/skill" to="." method="_on_skill_pressed"]

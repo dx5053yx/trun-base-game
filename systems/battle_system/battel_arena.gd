@@ -1,6 +1,16 @@
 extends Control
+@onready var action_menu = $booton/acction
+@onready var skill_menu = $booton/SkillMenu 
+@onready var party_positions = $posisi_plyr
+@onready var enemy_positions = $posisi_enmy
 
+# Memuat cetakan UI yang baru kita buat
+var battler_ui_scene = preload("res://systems/battle_system/BattelUi.tscn")
+
+# Dictionary untuk melacak UI milik siapa (agar darah yang berkurang tidak salah orang)
+var ui_nodes = {}
 # Array untuk menampung semua petarung (Party + Musuh) di arena ini
+var current_battler = null # Menyimpan data siapa yang sedang jalan sekarang
 var turn_queue: Array = []
 
 # Array terpisah untuk memudahkan perhitungan nanti
@@ -12,34 +22,46 @@ func _ready():
 	setup_battle()
 
 func setup_battle():
-	# 1. Panggil data tim kamu dari Autoload PartyManager
-	# (Pastikan di PartyManager sudah ada karakter yang di-add ke active_party)
+	# 1. Panggil data tim dari Autoload PartyManager
 	active_heroes = PartyDat.active_party.duplicate()
 	
-	# 2. Tarik data musuh (Sebagai contoh, kita load 2 Slime)
-	# Pastikan kamu sudah bikin slime.tres di data/enemies/ ya!
-	var musuh_1 = preload("res://data/enemies/slime.tres")
-	var musuh_2 = preload("res://data/enemies/slime.tres")
+	# 2. Tarik data musuh 
+	var musuh_1 = preload("res://data/enemies/kroco1.tres")
+	var musuh_2 = preload("res://data/enemies/keroco2.tres")
 	
-	# Kita harus duplikat agar kalau HP slime 1 berkurang, slime 2 tidak ikut berkurang
 	active_enemies.append(musuh_1.duplicate()) 
 	active_enemies.append(musuh_2.duplicate())
-	
-	# 3. Gabungkan pahlawan dan musuh ke dalam satu arena
-	turn_queue.append_array(active_heroes)
-	turn_queue.append_array(active_enemies)
+	# 3. Gabungkan pahlawan dan musuh sekaligus memunculkan visualnya!
+	for hero in active_heroes:
+		turn_queue.append(hero)
+		spawn_ui(hero, true) # true artinya ini hero
+	for enemy in active_enemies:
+		turn_queue.append(enemy)
+		spawn_ui(enemy, false) # false artinya ini musuh
 	
 	# 4. Susun giliran berdasarkan SPEED!
 	sort_turn_queue()
+func spawn_ui(battler_stats, is_hero: bool):
+	var ui_instance = battler_ui_scene.instantiate()
+	
+	# Simpan ke dictionary agar nanti mudah dicari saat kena damage
+	ui_nodes[battler_stats] = ui_instance 
+	
+	# Taruh di sisi layar yang benar
+	if is_hero:
+		party_positions.add_child(ui_instance)
+	else:
+		enemy_positions.add_child(ui_instance)
+		
+	# Jalankan setup untuk memunculkan nama dan HP Bar
+	ui_instance.setup(battler_stats)
 
 func sort_turn_queue():
-	# Fungsi ajaib Godot untuk mengurutkan array dari speed terbesar ke terkecil
 	turn_queue.sort_custom(func(a, b): return a.speed > b.speed)
 	
 	print("=== URUTAN GILIRAN ===")
 	for i in range(turn_queue.size()):
 		var battler = turn_queue[i]
-		# Karena musuh kita resource-nya sama (EnemyStats), kita asumsikan variabel namanya sama
 		var nama = ""
 		if battler is CharacterStats:
 			nama = battler.character_name
@@ -53,9 +75,115 @@ func sort_turn_queue():
 	start_turn()
 
 func start_turn():
-	var karakter_sekarang = turn_queue[0]
-	print("\n>>> Giliran " + karakter_sekarang.character_name + " sekarang! <<<")
+	current_battler = turn_queue[0]
+	print("\n>>> Giliran " + current_battler.character_name + " sekarang! <<<")
 	
-	# Nanti di sini kita buat logika: 
-	# Jika ini giliran hero, munculkan ActionMenu.
-	# Jika ini giliran musuh, jalankan AI musuh secara otomatis.
+	if current_battler is CharacterStats:
+		# Giliran Hero! Munculkan menu tombol
+		action_menu.show()
+	else:
+		# Giliran Musuh! Sembunyikan menu dan biarkan AI jalan
+		action_menu.hide()
+		enemy_turn()
+
+func enemy_turn():
+	print(current_battler.character_name + " (Musuh) bersiap menyerang...")
+	# Jeda 1 detik agar tidak terlalu cepat
+	await get_tree().create_timer(1.0).timeout
+	
+	# Pilih target hero secara acak
+	if active_heroes.size() > 0:
+		var target = active_heroes.pick_random()
+		perform_attack(current_battler, target)
+
+# Ini fungsi yang tadi otomatis dibuat saat kamu connect sinyal
+func _on_basic_atk_pressed() -> void:
+	action_menu.hide() # Sembunyikan menu agar tidak di-klik 2x
+	
+	# Untuk tes awal, kita otomatis menyerang musuh urutan pertama dulu
+	if active_enemies.size() > 0:
+		var target = active_enemies[0] 
+		perform_attack(current_battler, target)
+
+func perform_attack(attacker, target):
+	# Rumus damage sederhana: Attack Power - Defense Target
+	var damage = attacker.attack_power - (target.defense / 2)
+	if damage < 1: damage = 1 # Minimal damage selalu 1
+	
+	# Kurangi HP
+	target.current_hp -= damage
+	# Update visual bar darahnya di layar!
+	if ui_nodes.has(target):
+		ui_nodes[target].update_hp()
+	print("⚔️ " + attacker.character_name + " menyerang " + target.character_name + " sebesar " + str(damage) + " damage!")
+	print("❤️ Sisa HP " + target.character_name + ": " + str(target.current_hp) + "/" + str(target.max_hp))
+	
+	# Cek apakah target mati
+	if target.current_hp <= 0:
+		print("💀 " + target.character_name + " MATI!")
+		turn_queue.erase(target) # Hapus dari antrean
+		if target is CharacterStats:
+			active_heroes.erase(target)
+		else:
+			active_enemies.erase(target)
+			
+	end_turn()
+
+func end_turn():
+	# Cek apakah game sudah selesai
+	if active_heroes.size() == 0:
+		print("--- GAME OVER! Party Hancur ---")
+		return
+	elif active_enemies.size() == 0:
+		print("--- VICTORY! Semua Musuh Kalah ---")
+		return
+		
+	# Pindahkan karakter yang baru selesai beraksi ke urutan paling belakang
+	var battler_selesai = turn_queue.pop_front()
+	turn_queue.push_back(battler_selesai)
+	
+	# Jeda 1 detik sebelum giliran selanjutnya
+	await get_tree().create_timer(1.0).timeout
+	start_turn()
+
+
+func _on_skill_pressed() -> void:
+	action_menu.hide()
+	skill_menu.show()
+	
+	# 1. Bersihkan tombol skill bekas giliran karakter sebelumnya
+	for child in skill_menu.get_children():
+		child.queue_free()
+		
+	# 2. Baca data skill dari karakter yang sedang jalan
+	if current_battler.skills.size() == 0:
+		print("Karakter ini tidak punya skill!")
+		
+	for skill in current_battler.skills:
+		if skill == null: continue # Lewati jika ada slot kosong
+		
+		var btn = Button.new()
+		# Format teks: "Nama Skill (MP: 10)"
+		btn.text = skill.skill_name + " (MP: " + str(skill.mp_cost) + ")" 
+		
+		# Hubungkan tombol ini ke fungsi penggunaan skill
+		btn.pressed.connect(func(): _use_skill(skill))
+		skill_menu.add_child(btn)
+		
+	# 3. Tambahkan tombol "Kembali" di paling bawah
+	var back_btn = Button.new()
+	back_btn.text = "Kembali"
+	back_btn.pressed.connect(func():
+		skill_menu.hide()
+		action_menu.show()
+	)
+	skill_menu.add_child(back_btn)
+
+# Fungsi sementara untuk mengecek apakah skill berhasil dipanggil
+func _use_skill(skill_data):
+	print("Merapalkan skill: " + skill_data.skill_name)
+	skill_menu.hide()
+	
+	# Nanti di sini kita buat logika mengurangi MP dan memberi efek Damage/Heal
+	# Untuk sekarang, kita langsung akhiri giliran saja setelah pakai skill
+	end_turn()

@@ -1,11 +1,11 @@
 Button
 VBoxContainer
+Label
+ProgressBar
 Panel
 HBoxContainer
 TextureRect
-Label
 Camera2D
-ProgressBar
 Sprite2D
 CharacterBody2D
 Control
