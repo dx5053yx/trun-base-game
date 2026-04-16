@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="CharacterStats" format=3 uid="uid://v4pj68lny6tf"]
 
 [ext_resource type="Script" uid="uid://bru016kf7qe6s" path="res://core/resources/char_stat.gd" id="1_iagix"]
+[ext_resource type="Script" uid="uid://b4qu4nmoeircx" path="res://core/resources/skill_dat.gd" id="2_8ptkn"]
 
 [resource]
 script = ExtResource("1_iagix")
+character_name = "ridwan"
 metadata/_custom_type_script = "uid://bru016kf7qe6s"

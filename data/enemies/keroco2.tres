@@ -5,4 +5,5 @@
 
 [resource]
 script = ExtResource("1_2d2x6")
+character_name = "keroco2"
 metadata/_custom_type_script = "uid://bmxew6ryek11a"

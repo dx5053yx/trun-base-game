@@ -5,4 +5,5 @@
 
 [resource]
 script = ExtResource("1_w3uxv")
+character_name = "kipli"
 metadata/_custom_type_script = "uid://bru016kf7qe6s"

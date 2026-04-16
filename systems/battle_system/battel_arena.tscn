@@ -2,22 +2,28 @@
 
 [ext_resource type="Script" uid="uid://dtgviijjt66vn" path="res://systems/battle_system/battel_arena.gd" id="1_22jws"]
 
-[node name="BattelArena" type="Node2D" unique_id=838868993]
+[node name="BattelArena" type="Control" unique_id=1916114402]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_22jws")
 
 [node name="background" type="TextureRect" parent="." unique_id=857072806]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="posisi_enmy" type="HBoxContainer" parent="." unique_id=614471419]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="posisi_plyr" type="HBoxContainer" parent="." unique_id=600246169]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="booton" type="Panel" parent="." unique_id=722201017]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 

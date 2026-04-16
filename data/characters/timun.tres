@@ -5,4 +5,5 @@
 
 [resource]
 script = ExtResource("1_2tceh")
+character_name = "timun"
 metadata/_custom_type_script = "uid://bru016kf7qe6s"

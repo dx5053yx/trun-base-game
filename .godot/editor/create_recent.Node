@@ -1,3 +1,4 @@
+Control
 Button
 VBoxContainer
 Label
@@ -8,5 +9,4 @@ TextureRect
 Camera2D
 Sprite2D
 CharacterBody2D
-Control
 Marker2D

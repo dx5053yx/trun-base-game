@@ -1,4 +1,5 @@
 extends Control
+
 @onready var action_menu = $booton/acction
 @onready var skill_menu = $booton/SkillMenu 
 @onready var party_positions = $posisi_plyr
@@ -13,13 +14,14 @@ var ui_nodes = {}
 var current_battler = null # Menyimpan data siapa yang sedang jalan sekarang
 var turn_queue: Array = []
 
-# Array terpisah untuk memudahkan perhitungan nanti
+# Array terpisah untuk memudahkan perhitungan 
 var active_enemies: Array = []
 var active_heroes: Array = []
-
 func _ready():
 	print("--- MEMULAI BATTLE ---")
 	setup_battle()
+	start_turn()
+	
 
 func setup_battle():
 	# 1. Panggil data tim dari Autoload PartyManager
@@ -181,9 +183,57 @@ func _on_skill_pressed() -> void:
 
 # Fungsi sementara untuk mengecek apakah skill berhasil dipanggil
 func _use_skill(skill_data):
-	print("Merapalkan skill: " + skill_data.skill_name)
+	# 1. Cek apakah MP cukup
+	if current_battler.current_mp < skill_data.mp_cost:
+		print("MP " + current_battler.character_name + " tidak cukup!")
+		return # Batal pakai skill, biarkan pemain milih aksi lain
+		
+	# 2. Kurangi MP
+	current_battler.current_mp -= skill_data.mp_cost
+	print("\n🌟 " + current_battler.character_name + " merapalkan [" + skill_data.skill_name + "]!")
+	
 	skill_menu.hide()
 	
-	# Nanti di sini kita buat logika mengurangi MP dan memberi efek Damage/Heal
-	# Untuk sekarang, kita langsung akhiri giliran saja setelah pakai skill
+	# 3. Logika Efek Skill (Sementara kita auto-target dulu agar gampang dites)
+	if skill_data.effect_type == SkillData.SkillEffect.DAMAGE:
+		if active_enemies.size() > 0:
+			var target = active_enemies[0] # Otomatis serang musuh pertama
+			
+			# Rumus damage: Power Skill + Attack Hero - Defense Musuh
+			var damage = skill_data.power + current_battler.attack_power - (target.defense / 2)
+			if damage < 1: damage = 1
+			
+			target.current_hp -= damage
+			print("💥 Memberikan " + str(damage) + " damage ke " + target.character_name + "!")
+			
+			if ui_nodes.has(target):
+				ui_nodes[target].update_hp()
+				
+			cek_kematian(target)
+			
+	elif skill_data.effect_type == SkillData.SkillEffect.HEAL:
+		if active_heroes.size() > 0:
+			var target = active_heroes[0] # Otomatis heal hero pertama (MC)
+			
+			target.current_hp += skill_data.power
+			if target.current_hp > target.max_hp:
+				target.current_hp = target.max_hp # Cegah HP bocor melebihi batas maksimal
+				
+			print("✨ Memulihkan " + str(skill_data.power) + " HP untuk " + target.character_name + "!")
+			
+			if ui_nodes.has(target):
+				ui_nodes[target].update_hp()
+
+	# Akhiri giliran setelah pakai skill
 	end_turn()
+
+# Fungsi baru agar rapi (tambahkan di bagian bawah script)
+func cek_kematian(target):
+	if target.current_hp <= 0:
+		print("💀 " + target.character_name + " MATI!")
+		turn_queue.erase(target)
+		if target is CharacterStats:
+			active_heroes.erase(target)
+		else:
+			active_enemies.erase(target)
+	

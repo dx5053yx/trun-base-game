@@ -2,7 +2,7 @@ extends Resource
 class_name enemystat
 
 # Info Dasar
-@export var character_name: String = "Unknown"
+@export var character_name: String
 @export var is_mc: bool = false
 
 # Statistik

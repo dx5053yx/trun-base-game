@@ -1,5 +1,5 @@
 63f7b34db8d8cdea90c76aacccf841ec
-::res://::1776076732
+::res://::1776338140
 icon.svg::CompressedTexture2D::4524927949438102776::1775909347::1775909355::1::::<><><>0<>0<>8e6ccd616c9c9b10dc5d1aabfa230249<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
 ::res://core/::1775907807
 ::res://core/autoloads/::1775982137
@@ -33,8 +33,8 @@ explorer.tscn::PackedScene::1556778230918769198::1775981501::0::1::::<><><>0<>0<
 ::res://levels/::1775907904
 ::res://levels/map_01_forest/::1775907904
 ::res://systems/::1775907918
-::res://systems/battle_system/::1776040469
+::res://systems/battle_system/::1776077247
 BattelUi.tscn::PackedScene::6086902407409757568::1776040469::0::1::::<><><>0<>0<><>::uid://bdf3d4rxbrkbl::::res://systems/battle_system/battel_ui.gd
-battel_arena.gd::GDScript::8506526124451217115::1776040469::0::1::::<>Control<><>0<>0<><>::
-battel_arena.tscn::PackedScene::6977880254841875458::1776040469::0::1::::<><><>0<>0<><>::uid://dtgviijjt66vn::::res://systems/battle_system/battel_arena.gd
+battel_arena.gd::GDScript::8506526124451217115::1776077247::0::1::::<>Control<><>0<>0<><>::
+battel_arena.tscn::PackedScene::6977880254841875458::1776077247::0::1::::<><><>0<>0<><>::uid://dtgviijjt66vn::::res://systems/battle_system/battel_arena.gd
 battel_ui.gd::GDScript::2609016087042532877::1776040469::0::1::::<>VBoxContainer<><>0<>0<><>::

@@ -1,10 +1,11 @@
 [gd_resource type="Resource" script_class="CharacterStats" format=3 uid="uid://5brme7go5q0a"]
 
 [ext_resource type="Script" uid="uid://bru016kf7qe6s" path="res://core/resources/char_stat.gd" id="1_mxkbc"]
-[ext_resource type="Resource" uid="uid://bf1glmjq0yvlo" path="res://data/skill/mc/besic_att.tres" id="2_hhugu"]
 [ext_resource type="Script" uid="uid://b4qu4nmoeircx" path="res://core/resources/skill_dat.gd" id="2_y6q3r"]
 
 [resource]
 script = ExtResource("1_mxkbc")
-skills = Array[ExtResource("2_y6q3r")]([ExtResource("2_hhugu")])
+character_name = "akiru"
+is_mc = true
+speed = 20
 metadata/_custom_type_script = "uid://bru016kf7qe6s"
