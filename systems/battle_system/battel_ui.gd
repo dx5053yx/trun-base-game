@@ -1,21 +1,29 @@
 extends VBoxContainer
 
-# Mengambil referensi ke Label dan ProgressBar
 @onready var name_label = $Label
 @onready var hp_bar = $ProgressBar
+@onready var energy_bar = $energi # Panggil bar energi baru
 
-var stats = null # Menyimpan data statistik milik karakter ini
+var stats = null
 
-# Fungsi ini akan dipanggil saat karakter ini muncul di arena
 func setup(data_stats):
 	stats = data_stats
-	
-	# Karena di musuh dan hero kita menamai variabelnya sama (character_name, max_hp, current_hp),
-	# kita bisa langsung panggil seperti ini:
 	name_label.text = stats.character_name
 	hp_bar.max_value = stats.max_hp
 	hp_bar.value = stats.current_hp
+	
+	# Kita hanya memunculkan Bar Energi untuk Hero (CharacterStats)
+	if stats is CharacterStats:
+		energy_bar.show()
+		energy_bar.max_value = stats.max_energy
+		energy_bar.value = stats.current_energy
+	else:
+		energy_bar.hide() # Musuh tidak perlu kelihatan energinya
 
-# Fungsi untuk memperbarui bar darah saat kena damage
 func update_hp():
 	hp_bar.value = stats.current_hp
+
+# Fungsi baru untuk mengupdate bar energi
+func update_energy():
+	if stats is CharacterStats:
+		energy_bar.value = stats.current_energy

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="SkillDat" format=3 uid="uid://cc223nkgaqoue"]
+
+[ext_resource type="Script" uid="uid://b4qu4nmoeircx" path="res://core/resources/skill_dat.gd" id="1_cyci7"]
+
+[resource]
+script = ExtResource("1_cyci7")
+skill_name = "peler"
+description = ""
+metadata/_custom_type_script = "uid://b4qu4nmoeircx"

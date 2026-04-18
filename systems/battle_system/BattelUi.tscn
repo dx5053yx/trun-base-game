@@ -10,3 +10,6 @@ layout_mode = 2
 
 [node name="ProgressBar" type="ProgressBar" parent="." unique_id=1012588989]
 layout_mode = 2
+
+[node name="energi" type="ProgressBar" parent="." unique_id=418753902]
+layout_mode = 2

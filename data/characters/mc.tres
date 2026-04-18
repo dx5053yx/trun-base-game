@@ -1,11 +1,15 @@
 [gd_resource type="Resource" script_class="CharacterStats" format=3 uid="uid://5brme7go5q0a"]
 
+[ext_resource type="Resource" uid="uid://bf1glmjq0yvlo" path="res://data/skill/mc/skill.tres" id="1_hhugu"]
 [ext_resource type="Script" uid="uid://bru016kf7qe6s" path="res://core/resources/char_stat.gd" id="1_mxkbc"]
-[ext_resource type="Script" uid="uid://b4qu4nmoeircx" path="res://core/resources/skill_dat.gd" id="2_y6q3r"]
+[ext_resource type="Resource" uid="uid://3stbuhuwmifw" path="res://data/skill/mc/ultimate.tres" id="3_220qx"]
 
 [resource]
 script = ExtResource("1_mxkbc")
 character_name = "akiru"
 is_mc = true
 speed = 20
+attack_power = 100
+normal_skill = ExtResource("1_hhugu")
+ultimate_skill = ExtResource("3_220qx")
 metadata/_custom_type_script = "uid://bru016kf7qe6s"

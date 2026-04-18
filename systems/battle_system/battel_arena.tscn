@@ -24,24 +24,46 @@ offset_bottom = 40.0
 
 [node name="booton" type="Panel" parent="." unique_id=722201017]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 153.0
+offset_top = 81.0
+offset_right = 193.0
+offset_bottom = 121.0
 
 [node name="acction" type="VBoxContainer" parent="booton" unique_id=234674800]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 208.0
+offset_top = 109.0
+offset_right = 248.0
+offset_bottom = 149.0
 
 [node name="basic_atk" type="Button" parent="booton/acction" unique_id=1937568856]
 layout_mode = 2
 
 [node name="SkillMenu" type="VBoxContainer" parent="booton" unique_id=1123983832]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 48.0
+offset_top = 127.0
+offset_right = 88.0
+offset_bottom = 167.0
+tooltip_text = "tes"
 
 [node name="skill" type="Button" parent="booton/SkillMenu" unique_id=2066805455]
 layout_mode = 2
+text = "info"
+
+[node name="TargetMenu" type="VBoxContainer" parent="booton" unique_id=146116390]
+layout_mode = 0
+offset_left = -153.0
+offset_top = -81.0
+offset_right = -113.0
+offset_bottom = -41.0
+
+[node name="SP" type="Label" parent="." unique_id=2060974642]
+layout_mode = 0
+offset_left = 141.0
+offset_top = 98.0
+offset_right = 181.0
+offset_bottom = 121.0
 
 [connection signal="pressed" from="booton/acction/basic_atk" to="." method="_on_basic_atk_pressed"]
 [connection signal="pressed" from="booton/SkillMenu/skill" to="." method="_on_skill_pressed"]

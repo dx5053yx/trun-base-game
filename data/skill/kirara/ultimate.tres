@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SkillDat" format=3 uid="uid://wo5bud0drgdv"]
+
+[ext_resource type="Script" uid="uid://b4qu4nmoeircx" path="res://core/resources/skill_dat.gd" id="1_lp6e0"]
+
+[resource]
+script = ExtResource("1_lp6e0")
+effect_type = 2
+target_type = 3
+is_ultimate = true
+metadata/_custom_type_script = "uid://b4qu4nmoeircx"

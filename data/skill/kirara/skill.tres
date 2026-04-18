@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SkillDat" format=3 uid="uid://csvpdofifu46k"]
+
+[ext_resource type="Script" uid="uid://b4qu4nmoeircx" path="res://core/resources/skill_dat.gd" id="1_mh3uf"]
+
+[resource]
+script = ExtResource("1_mh3uf")
+effect_type = 2
+target_type = 3
+power = 20
+metadata/_custom_type_script = "uid://b4qu4nmoeircx"

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="SkillDat" format=3 uid="uid://c74jq7asd6afj"]
+
+[ext_resource type="Script" uid="uid://b4qu4nmoeircx" path="res://core/resources/skill_dat.gd" id="1_i10hp"]
+
+[resource]
+script = ExtResource("1_i10hp")
+skill_name = "hellnah"
+is_ultimate = true
+metadata/_custom_type_script = "uid://b4qu4nmoeircx"

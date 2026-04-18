@@ -4,7 +4,13 @@ extends Control
 @onready var skill_menu = $booton/SkillMenu 
 @onready var party_positions = $posisi_plyr
 @onready var enemy_positions = $posisi_enmy
+@onready var sp_label = $SP # Pastikan namanya sesuai
+@onready var target_menu = $booton/TargetMenu
+# --- SISTEM SHARED SP TIM ---
+var max_team_sp: int = 5
+var team_sp: int = 3 # Modal awal saat battle mulai
 
+# (Nanti kamu bisa bikin UI Label khusus di layar untuk nampilin angka ini)
 # Memuat cetakan UI yang baru kita buat
 var battler_ui_scene = preload("res://systems/battle_system/BattelUi.tscn")
 
@@ -20,8 +26,9 @@ var active_heroes: Array = []
 func _ready():
 	print("--- MEMULAI BATTLE ---")
 	setup_battle()
-	start_turn()
-	
+
+func update_sp_ui():
+	sp_label.text = "SP Tim: " + str(team_sp) + " / " + str(max_team_sp)
 
 func setup_battle():
 	# 1. Panggil data tim dari Autoload PartyManager
@@ -43,6 +50,8 @@ func setup_battle():
 	
 	# 4. Susun giliran berdasarkan SPEED!
 	sort_turn_queue()
+	update_sp_ui()
+
 func spawn_ui(battler_stats, is_hero: bool):
 	var ui_instance = battler_ui_scene.instantiate()
 	
@@ -57,6 +66,35 @@ func spawn_ui(battler_stats, is_hero: bool):
 		
 	# Jalankan setup untuk memunculkan nama dan HP Bar
 	ui_instance.setup(battler_stats)
+	
+# Fungsi dinamis untuk memunculkan daftar target
+func buka_menu_target(daftar_target: Array, fungsi_eksekusi: Callable):
+	target_menu.show()
+	
+	# Bersihkan tombol bekas giliran sebelumnya
+	for child in target_menu.get_children():
+		child.queue_free()
+		
+	# Buat tombol untuk setiap target (misal: "Kroco (HP: 50)")
+	for target in daftar_target:
+		var btn = Button.new()
+		btn.text = target.character_name + " (HP: " + str(target.current_hp) + ")"
+		
+		# Saat tombol diklik, sembunyikan menu dan jalankan fungsi serangannya!
+		btn.pressed.connect(func():
+			target_menu.hide()
+			fungsi_eksekusi.call(target)
+		)
+		target_menu.add_child(btn)
+		
+	# Tambahkan tombol Kembali/Batal
+	var back_btn = Button.new()
+	back_btn.text = "Kembali"
+	back_btn.pressed.connect(func():
+		target_menu.hide()
+		action_menu.show()
+	)
+	target_menu.add_child(back_btn)
 
 func sort_turn_queue():
 	turn_queue.sort_custom(func(a, b): return a.speed > b.speed)
@@ -64,16 +102,9 @@ func sort_turn_queue():
 	print("=== URUTAN GILIRAN ===")
 	for i in range(turn_queue.size()):
 		var battler = turn_queue[i]
-		var nama = ""
-		if battler is CharacterStats:
-			nama = battler.character_name
-		else:
-			# Sesuaikan dengan nama variabel di enemy_stats.gd kamu
-			nama = battler.enemy_name 
-			
-		print(str(i + 1) + ". " + nama + " (Speed: " + str(battler.speed) + ")")
+		# Langsung panggil character_name tanpa if-else!
+		print(str(i + 1) + ". " + battler.character_name + " (Speed: " + str(battler.speed) + ")")
 		
-	# Setelah diurutkan, panggil giliran pertama
 	start_turn()
 
 func start_turn():
@@ -100,37 +131,45 @@ func enemy_turn():
 
 # Ini fungsi yang tadi otomatis dibuat saat kamu connect sinyal
 func _on_basic_atk_pressed() -> void:
-	action_menu.hide() # Sembunyikan menu agar tidak di-klik 2x
-	
-	# Untuk tes awal, kita otomatis menyerang musuh urutan pertama dulu
+	action_menu.hide()
+	# Alihkan ke menu target musuh, dan bawa fungsi eksekusi basic attack-nya
 	if active_enemies.size() > 0:
-		var target = active_enemies[0] 
-		perform_attack(current_battler, target)
+		buka_menu_target(active_enemies, _eksekusi_basic_attack)
+
+# Ini adalah fungsi yang benar-benar melakukan pengurangan darah dan penambahan SP
+func _eksekusi_basic_attack(target):
+	# 1. Tambah SP Tim
+	if team_sp < max_team_sp:
+		team_sp += 1
+	update_sp_ui()
+	
+	# 2. Tambah Energy Ultimate
+	current_battler.current_energy += 20
+	if current_battler.current_energy > current_battler.max_energy:
+		current_battler.current_energy = current_battler.max_energy
+		
+	if ui_nodes.has(current_battler):
+		ui_nodes[current_battler].update_energy()
+		
+	# 3. Eksekusi damage ke target yang barusan di-klik!
+	perform_attack(current_battler, target)
 
 func perform_attack(attacker, target):
-	# Rumus damage sederhana: Attack Power - Defense Target
 	var damage = attacker.attack_power - (target.defense / 2)
-	if damage < 1: damage = 1 # Minimal damage selalu 1
+	if damage < 1: damage = 1 
 	
-	# Kurangi HP
 	target.current_hp -= damage
-	# Update visual bar darahnya di layar!
 	if ui_nodes.has(target):
 		ui_nodes[target].update_hp()
+		
 	print("⚔️ " + attacker.character_name + " menyerang " + target.character_name + " sebesar " + str(damage) + " damage!")
 	print("❤️ Sisa HP " + target.character_name + ": " + str(target.current_hp) + "/" + str(target.max_hp))
 	
-	# Cek apakah target mati
-	if target.current_hp <= 0:
-		print("💀 " + target.character_name + " MATI!")
-		turn_queue.erase(target) # Hapus dari antrean
-		if target is CharacterStats:
-			active_heroes.erase(target)
-		else:
-			active_enemies.erase(target)
+	# Panggil fungsi yang sudah kamu buat dengan susah payah!
+	cek_kematian(target)
 			
 	end_turn()
-
+	
 func end_turn():
 	# Cek apakah game sudah selesai
 	if active_heroes.size() == 0:
@@ -147,32 +186,95 @@ func end_turn():
 	# Jeda 1 detik sebelum giliran selanjutnya
 	await get_tree().create_timer(1.0).timeout
 	start_turn()
+func _siapkan_skill(skill_data):
+	# Bayar SP atau Energy dulu
+	if skill_data.is_ultimate:
+		if current_battler.current_energy < skill_data.energy_cost:
+			print("🔥 Energy tidak cukup!")
+			return
+		current_battler.current_energy -= skill_data.energy_cost
+	else:
+		if team_sp < skill_data.sp_cost:
+			print("🔋 SP Tim tidak cukup!")
+			return 
+		team_sp -= skill_data.sp_cost
+		
+		# Nambah energy karena pakai skill biasa
+		current_battler.current_energy += skill_data.energy_gained
+		if current_battler.current_energy > current_battler.max_energy:
+			current_battler.current_energy = current_battler.max_energy
+			
+	# Update tampilan bar energi dan teks SP
+	update_sp_ui()
+	if ui_nodes.has(current_battler):
+		ui_nodes[current_battler].update_energy()
+		
+	skill_menu.hide()
+	
+	# === PINTAR MEMILIH TARGET ===
+	# Kalau targetnya teman (buat Heal/Buff)
+	if skill_data.target_type == 2 or skill_data.target_type == 3: # 2 = SINGLE_ALLY, 3 = ALL_ALLIES (Cek enum di skill_dat)
+		buka_menu_target(active_heroes, func(target): _eksekusi_efek_skill(skill_data, target))
+	else:
+		# Kalau targetnya musuh (buat Damage/Debuff)
+		buka_menu_target(active_enemies, func(target): _eksekusi_efek_skill(skill_data, target))
+		
+func _eksekusi_efek_skill(skill_data, target):
+	print("\n🌟 " + current_battler.character_name + " menggunakan [" + skill_data.skill_name + "] pada " + target.character_name + "!")
+	
+	# Cek tipe efeknya! (0 = DAMAGE, 1 = HEAL, 2 = BUFF, 3 = DEBUFF)
+	if skill_data.effect_type == 0: # DAMAGE
+		var damage = skill_data.power - (target.defense / 2)
+		if damage < 1: damage = 1 
+		target.current_hp -= damage
+		print("💥 " + target.character_name + " terkena " + str(damage) + " damage!")
+		
+	elif skill_data.effect_type == 1: # HEAL
+		target.current_hp += skill_data.power
+		# Jangan sampai nyawa melebihi batas (Overheal)
+		if target.current_hp > target.max_hp:
+			target.current_hp = target.max_hp
+		print("💚 " + target.character_name + " di-Heal sebesar " + str(skill_data.power) + " HP!")
+		
+	elif skill_data.effect_type == 2: # BUFF (Contoh: Nambah Speed sementara)
+		print("✨ " + target.character_name + " mendapatkan Buff!")
+		# Nanti kita bisa kembangkan logika buff-nya di sini
+		
+	# Update bar HP di layar
+	if ui_nodes.has(target):
+		ui_nodes[target].update_hp()
+		
+	# Cek apakah musuh mati (fungsi yang sudah kamu buat sebelumnya)
+	cek_kematian(target)
+	
+	# Akhiri giliran
+	end_turn()
 
-
-func _on_skill_pressed() -> void:
+func _on_skill_btn_pressed():
 	action_menu.hide()
 	skill_menu.show()
 	
-	# 1. Bersihkan tombol skill bekas giliran karakter sebelumnya
+	# Bersihkan tombol lama
 	for child in skill_menu.get_children():
 		child.queue_free()
 		
-	# 2. Baca data skill dari karakter yang sedang jalan
-	if current_battler.skills.size() == 0:
-		print("Karakter ini tidak punya skill!")
+	# 1. TOMBOL NORMAL SKILL
+	if current_battler.normal_skill != null:
+		var skill = current_battler.normal_skill
+		var btn_skill = Button.new()
+		btn_skill.text = skill.skill_name + " (SP: " + str(skill.sp_cost) + ")"
+		btn_skill.pressed.connect(func(): _siapkan_skill(skill))
+		skill_menu.add_child(btn_skill)
 		
-	for skill in current_battler.skills:
-		if skill == null: continue # Lewati jika ada slot kosong
+	# 2. TOMBOL ULTIMATE
+	if current_battler.ultimate_skill != null:
+		var ulti = current_battler.ultimate_skill
+		var btn_ulti = Button.new()
+		btn_ulti.text = ulti.skill_name + " (Energy: " + str(ulti.energy_cost) + ")"
+		btn_ulti.pressed.connect(func(): _siapkan_skill(ulti))
+		skill_menu.add_child(btn_ulti)
 		
-		var btn = Button.new()
-		# Format teks: "Nama Skill (MP: 10)"
-		btn.text = skill.skill_name + " (MP: " + str(skill.mp_cost) + ")" 
-		
-		# Hubungkan tombol ini ke fungsi penggunaan skill
-		btn.pressed.connect(func(): _use_skill(skill))
-		skill_menu.add_child(btn)
-		
-	# 3. Tambahkan tombol "Kembali" di paling bawah
+	# Tombol Kembali
 	var back_btn = Button.new()
 	back_btn.text = "Kembali"
 	back_btn.pressed.connect(func():
@@ -183,49 +285,38 @@ func _on_skill_pressed() -> void:
 
 # Fungsi sementara untuk mengecek apakah skill berhasil dipanggil
 func _use_skill(skill_data):
-	# 1. Cek apakah MP cukup
-	if current_battler.current_mp < skill_data.mp_cost:
-		print("MP " + current_battler.character_name + " tidak cukup!")
-		return # Batal pakai skill, biarkan pemain milih aksi lain
+	# 1. Cek apakah ini skill biasa atau Ultimate
+	if skill_data.is_ultimate:
+		# Pengecekan Energy untuk Ultimate
+		if current_battler.current_energy < skill_data.energy_cost:
+			print("🔥 Energy " + current_battler.character_name + " tidak cukup untuk Ultimate!")
+			return
 		
-	# 2. Kurangi MP
-	current_battler.current_mp -= skill_data.mp_cost
-	print("\n🌟 " + current_battler.character_name + " merapalkan [" + skill_data.skill_name + "]!")
+		# Kurangi Energy
+		current_battler.current_energy -= skill_data.energy_cost
+		print("\n🌟 " + current_battler.character_name + " mengeluarkan ULTIMATE: [" + skill_data.skill_name + "]!")
+		ui_nodes[current_battler].update_energy()
+		
+	else:
+		# Pengecekan SP Tim untuk Skill Biasa
+		if team_sp < skill_data.sp_cost:
+			print("🔋 SP Tim (" + str(team_sp) + ") tidak cukup untuk pakai skill!")
+			return 
+			
+		# Kurangi SP Tim
+		team_sp -= skill_data.sp_cost
+		update_sp_ui()
+		print("\n🌟 " + current_battler.character_name + " merapalkan [" + skill_data.skill_name + "]! (Sisa SP: " + str(team_sp) + ")")
+		
+		# Memakai skill juga akan mengisi sedikit Energy untuk Ultimate (dari blueprint)
+		current_battler.current_energy += skill_data.energy_gained
+		if current_battler.current_energy > current_battler.max_energy:
+			current_battler.current_energy = current_battler.max_energy
+		ui_nodes[current_battler].update_energy()
 	
 	skill_menu.hide()
 	
-	# 3. Logika Efek Skill (Sementara kita auto-target dulu agar gampang dites)
-	if skill_data.effect_type == SkillData.SkillEffect.DAMAGE:
-		if active_enemies.size() > 0:
-			var target = active_enemies[0] # Otomatis serang musuh pertama
-			
-			# Rumus damage: Power Skill + Attack Hero - Defense Musuh
-			var damage = skill_data.power + current_battler.attack_power - (target.defense / 2)
-			if damage < 1: damage = 1
-			
-			target.current_hp -= damage
-			print("💥 Memberikan " + str(damage) + " damage ke " + target.character_name + "!")
-			
-			if ui_nodes.has(target):
-				ui_nodes[target].update_hp()
-				
-			cek_kematian(target)
-			
-	elif skill_data.effect_type == SkillData.SkillEffect.HEAL:
-		if active_heroes.size() > 0:
-			var target = active_heroes[0] # Otomatis heal hero pertama (MC)
-			
-			target.current_hp += skill_data.power
-			if target.current_hp > target.max_hp:
-				target.current_hp = target.max_hp # Cegah HP bocor melebihi batas maksimal
-				
-			print("✨ Memulihkan " + str(skill_data.power) + " HP untuk " + target.character_name + "!")
-			
-			if ui_nodes.has(target):
-				ui_nodes[target].update_hp()
-
-	# Akhiri giliran setelah pakai skill
-	end_turn()
+	# ... (kode logika efek skill damage/heal di bawahnya tetap sama seperti sebelumnya) ...6
 
 # Fungsi baru agar rapi (tambahkan di bagian bawah script)
 func cek_kematian(target):
