@@ -4,7 +4,10 @@
 
 [node name="BattelArena" type="Control" unique_id=1916114402]
 layout_mode = 3
-anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1152.0
+offset_bottom = -648.0
 script = ExtResource("1_22jws")
 
 [node name="background" type="TextureRect" parent="." unique_id=857072806]
@@ -14,49 +17,59 @@ offset_bottom = 40.0
 
 [node name="posisi_enmy" type="HBoxContainer" parent="." unique_id=614471419]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 147.0
+offset_top = 169.0
+offset_right = 408.0
+offset_bottom = 407.0
 
 [node name="posisi_plyr" type="HBoxContainer" parent="." unique_id=600246169]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 774.0
+offset_top = 200.0
+offset_right = 1025.0
+offset_bottom = 434.0
 
 [node name="booton" type="Panel" parent="." unique_id=722201017]
 layout_mode = 0
-offset_left = 153.0
-offset_top = 81.0
-offset_right = 193.0
-offset_bottom = 121.0
+offset_left = 515.0
+offset_top = 551.0
+offset_right = 708.0
+offset_bottom = 615.0
 
 [node name="acction" type="VBoxContainer" parent="booton" unique_id=234674800]
 layout_mode = 0
-offset_left = 208.0
-offset_top = 109.0
-offset_right = 248.0
-offset_bottom = 149.0
+offset_left = 110.0
+offset_top = 16.0
+offset_right = 191.0
+offset_bottom = 56.0
 
 [node name="basic_atk" type="Button" parent="booton/acction" unique_id=1937568856]
 layout_mode = 2
+text = "basik_atk"
 
 [node name="SkillMenu" type="VBoxContainer" parent="booton" unique_id=1123983832]
-layout_mode = 0
-offset_left = 48.0
-offset_top = 127.0
-offset_right = 88.0
-offset_bottom = 167.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -15.509001
+anchor_top = -9.416
+anchor_right = -15.509001
+anchor_bottom = -9.416
+offset_left = 3001.237
+offset_top = 620.624
+offset_right = 3098.854
+offset_bottom = 655.792
 tooltip_text = "tes"
 
 [node name="skill" type="Button" parent="booton/SkillMenu" unique_id=2066805455]
 layout_mode = 2
-text = "info"
+text = "skill"
 
 [node name="TargetMenu" type="VBoxContainer" parent="booton" unique_id=146116390]
 layout_mode = 0
-offset_left = -153.0
-offset_top = -81.0
-offset_right = -113.0
-offset_bottom = -41.0
+offset_left = -84.0
+offset_top = -75.0
+offset_right = -44.0
+offset_bottom = -35.0
 
 [node name="SP" type="Label" parent="." unique_id=2060974642]
 layout_mode = 0

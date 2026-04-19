@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://bf1glmjq0yvlo"]
+[gd_resource type="Resource" script_class="SkillDat" format=3 uid="uid://bf1glmjq0yvlo"]
 
 [ext_resource type="Script" uid="uid://b4qu4nmoeircx" path="res://core/resources/skill_dat.gd" id="1_30wl2"]
 
@@ -6,4 +6,6 @@
 script = ExtResource("1_30wl2")
 skill_name = "basic atak"
 description = "mengakibatkat damage"
+target_type = 1
+power = 27
 metadata/_custom_type_script = "uid://b4qu4nmoeircx"

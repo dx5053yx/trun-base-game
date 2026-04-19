@@ -8,8 +8,6 @@ class_name CharacterStats
 @export var current_hp: int = 100
 
 # --- SISTEM BARU: SP & ENERGY ---
-@export var max_sp: int = 5       # Batas maksimal tabungan SP
-@export var current_sp: int = 3   # SP awal saat battle dimulai
 @export var max_energy: int = 100 # Batas Energy untuk Ultimate
 @export var current_energy: int = 0
 @export var energy_regen_rate: float = 1.0 
@@ -20,3 +18,6 @@ class_name CharacterStats
 
 @export var normal_skill: SkillDat
 @export var ultimate_skill: SkillDat
+@export var sprite_texture: Texture2D
+# Array untuk menampung efek-efek yang sedang aktif di tubuh karakter ini
+var active_statuses: Array[Dictionary] = []

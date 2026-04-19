@@ -2,6 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://bf1glmjq0yvlo" path="res://data/skill/mc/skill.tres" id="1_hhugu"]
 [ext_resource type="Script" uid="uid://bru016kf7qe6s" path="res://core/resources/char_stat.gd" id="1_mxkbc"]
+[ext_resource type="Texture2D" uid="uid://b5p55w8eohp4k" path="res://icon.svg" id="3_6fydo"]
 [ext_resource type="Resource" uid="uid://3stbuhuwmifw" path="res://data/skill/mc/ultimate.tres" id="3_220qx"]
 
 [resource]
@@ -12,4 +13,5 @@ speed = 20
 attack_power = 100
 normal_skill = ExtResource("1_hhugu")
 ultimate_skill = ExtResource("3_220qx")
+sprite_texture = ExtResource("3_6fydo")
 metadata/_custom_type_script = "uid://bru016kf7qe6s"

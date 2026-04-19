@@ -110,7 +110,35 @@ func sort_turn_queue():
 func start_turn():
 	current_battler = turn_queue[0]
 	print("\n>>> Giliran " + current_battler.character_name + " sekarang! <<<")
-	
+	for i in range(current_battler.active_statuses.size() - 1, -1, -1):
+		var status = current_battler.active_statuses[i]
+		
+		# 1. Cek efek yang terjadi setiap giliran (Racun / Regen Darah)
+		if status.stat == 1: # HP_DOT (Racun/Burn)
+			current_battler.current_hp -= status.jumlah
+			print("☠️ " + current_battler.character_name + " terkena " + str(status.jumlah) + " damage dari racun [" + status.nama + "]!")
+		elif status.stat == 2: # HP_REGEN (Heal pelan-pelan)
+			current_battler.current_hp += status.jumlah
+			if current_battler.current_hp > current_battler.max_hp: current_battler.current_hp = current_battler.max_hp
+			print("💚 " + current_battler.character_name + " memulihkan " + str(status.jumlah) + " HP dari efek [" + status.nama + "]!")
+			
+		# Update UI Darah di layar
+		if ui_nodes.has(current_battler): ui_nodes[current_battler].update_hp()
+		cek_kematian(current_battler)
+		
+		# Kalau mati gara-gara racun sebelum sempat jalan, langsung stop fungsi ini!
+		if current_battler.current_hp <= 0: return 
+		
+		# 2. Kurangi durasi efek
+		status.durasi -= 1
+		if status.durasi <= 0:
+			print("⏳ Efek [" + status.nama + "] pada " + current_battler.character_name + " telah habis!")
+			# Kembalikan stat seperti semula jika itu buff/debuff stat!
+			if status.stat == 3: current_battler.attack_power -= status.jumlah
+			elif status.stat == 4: current_battler.speed -= status.jumlah
+			elif status.stat == 5: current_battler.defense -= status.jumlah
+			
+			current_battler.active_statuses.remove_at(i)
 	if current_battler is CharacterStats:
 		# Giliran Hero! Munculkan menu tombol
 		action_menu.show()
@@ -154,7 +182,39 @@ func _eksekusi_basic_attack(target):
 	# 3. Eksekusi damage ke target yang barusan di-klik!
 	perform_attack(current_battler, target)
 
+func _animasi_serang_fisik(node_penyerang: Control, node_target: Control):
+	# 1. Catat posisi awal penyerang
+	var posisi_awal = node_penyerang.global_position
+	var posisi_target = node_target.global_position
+	
+	# 2. Tentukan arah maju. 
+	# Kalau penyerang di kanan (Hero), dia maju ke kiri (-). Kalau musuh di kiri, maju ke kanan (+).
+	var arah = 1 if posisi_awal.x < posisi_target.x else -1
+	
+	# 3. Tentukan titik pukul (Jangan pas di tengah badan target, kasih jarak misal 80 pixel)
+	var titik_pukul = posisi_target + Vector2(80 * -arah, 0)
+	
+	# 4. Buat TWEEN (Animasi)
+	var tween = get_tree().create_tween()
+	
+	# Bawa ke depan (maju dalam 0.3 detik)
+	tween.tween_property(node_penyerang, "global_position", titik_pukul, 0.3).set_trans(Tween.TRANS_SINE)
+	
+	# Mundur kembali ke posisi awal (mundur dalam 0.3 detik, tapi tunggu 0.2 detik dulu pas lagi mukul)
+	tween.tween_property(node_penyerang, "global_position", posisi_awal, 0.3).set_delay(0.2).set_trans(Tween.TRANS_SINE)
+	
+	# Kita suruh Godot menunggu sampai animasi mundurnya selesai baru kode di bawahnya boleh jalan
+	await tween.finished
+
 func perform_attack(attacker, target):
+	# Kita ambil Node UI milik penyerang dan target dari dictionary
+	var node_attacker = ui_nodes[attacker]
+	var node_target = ui_nodes[target]
+	
+	# JALANKAN ANIMASINYA! (Gunakan await agar nyawa target gak berkurang sebelum dipukul)
+	await _animasi_serang_fisik(node_attacker, node_target)
+	
+	# --- Kode kalkulasi damage di bawah ini tetap sama ---
 	var damage = attacker.attack_power - (target.defense / 2)
 	if damage < 1: damage = 1 
 	
@@ -229,6 +289,11 @@ func _eksekusi_efek_skill(skill_data, target):
 		target.current_hp -= damage
 		print("💥 " + target.character_name + " terkena " + str(damage) + " damage!")
 		
+		# Update bar HP dan cek kematian HANYA jika terkena damage
+		if ui_nodes.has(target):
+			ui_nodes[target].update_hp()
+		cek_kematian(target)
+		
 	elif skill_data.effect_type == 1: # HEAL
 		target.current_hp += skill_data.power
 		# Jangan sampai nyawa melebihi batas (Overheal)
@@ -236,18 +301,27 @@ func _eksekusi_efek_skill(skill_data, target):
 			target.current_hp = target.max_hp
 		print("💚 " + target.character_name + " di-Heal sebesar " + str(skill_data.power) + " HP!")
 		
-	elif skill_data.effect_type == 2: # BUFF (Contoh: Nambah Speed sementara)
-		print("✨ " + target.character_name + " mendapatkan Buff!")
-		# Nanti kita bisa kembangkan logika buff-nya di sini
+		# Update bar HP HANYA jika di-heal
+		if ui_nodes.has(target):
+			ui_nodes[target].update_hp()
 		
-	# Update bar HP di layar
-	if ui_nodes.has(target):
-		ui_nodes[target].update_hp()
+	elif skill_data.effect_type == 2 or skill_data.effect_type == 3: # BUFF atau DEBUFF
+		# Buat "paket" data status untuk ditempelkan ke target
+		var status = {
+			"nama": skill_data.skill_name,
+			"stat": skill_data.stat_affected,
+			"jumlah": skill_data.effect_amount if skill_data.effect_type == 2 else -skill_data.effect_amount, 
+			"durasi": skill_data.effect_duration
+		}
+		target.active_statuses.append(status)
+		print("✨ " + target.character_name + " terkena efek [" + skill_data.skill_name + "] selama " + str(skill_data.effect_duration) + " giliran!")
 		
-	# Cek apakah musuh mati (fungsi yang sudah kamu buat sebelumnya)
-	cek_kematian(target)
+		# Kalau ini buff/debuff stat instan (seperti ATK, SPD, DEF), langsung ubah stat aslinya
+		if status.stat == 3: target.attack_power += status.jumlah
+		elif status.stat == 4: target.speed += status.jumlah
+		elif status.stat == 5: target.defense += status.jumlah
 	
-	# Akhiri giliran
+	# Akhiri giliran dipanggil SATU KALI di akhir untuk semua jenis efek skill
 	end_turn()
 
 func _on_skill_btn_pressed():
@@ -308,7 +382,6 @@ func _use_skill(skill_data):
 		update_sp_ui()
 		print("\n🌟 " + current_battler.character_name + " merapalkan [" + skill_data.skill_name + "]! (Sisa SP: " + str(team_sp) + ")")
 		
-		# Memakai skill juga akan mengisi sedikit Energy untuk Ultimate (dari blueprint)
 		current_battler.current_energy += skill_data.energy_gained
 		if current_battler.current_energy > current_battler.max_energy:
 			current_battler.current_energy = current_battler.max_energy
@@ -316,9 +389,8 @@ func _use_skill(skill_data):
 	
 	skill_menu.hide()
 	
-	# ... (kode logika efek skill damage/heal di bawahnya tetap sama seperti sebelumnya) ...6
 
-# Fungsi baru agar rapi (tambahkan di bagian bawah script)
+
 func cek_kematian(target):
 	if target.current_hp <= 0:
 		print("💀 " + target.character_name + " MATI!")

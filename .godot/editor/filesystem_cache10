@@ -1,31 +1,54 @@
 63f7b34db8d8cdea90c76aacccf841ec
-::res://::1776416422
+::res://::1776591434
 icon.svg::CompressedTexture2D::4524927949438102776::1775909347::1775909355::1::::<><><>0<>0<>8e6ccd616c9c9b10dc5d1aabfa230249<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
-::res://asset/::1776359275
+::res://Assets /::1776592236
+::res://Assets /enemy/::1776592194
+Orc.png::CompressedTexture2D::224658199645170747::1715360560::1776592372::1::::<><><>0<>0<>c90880a8ed7383cbfb86fc3f12871894<>res://.godot/imported/Orc.png-e1cc2c3c1660bf9927d4fea9a81e40cf.ctex::
+::res://Assets /heros/::1776592164
+Soldier.png::CompressedTexture2D::1338449445253158623::1720908740::1776592372::1::::<><><>0<>0<>9090a8d28f8eca2d525865c73a2121f7<>res://.godot/imported/Soldier.png-fcd329ebd80902c177feb6833ebcb476.ctex::
+::res://Assets /item/::1776592024
+#1 - Transparent Icons.png::CompressedTexture2D::741470022694485459::1587265210::1776592372::1::::<><><>0<>0<>a06a8a1f0f49917801f8572c1b11ceb9<>res://.godot/imported/#1 - Transparent Icons.png-5ffee75256c51cf7e6bfae919419731c.ctex::
+::res://Assets /map/::1776592244
+::res://Assets /map/fores/::1776592315
+tf_jungle_a1.png::CompressedTexture2D::4889805199079119441::1499742726::1776592372::1::::<><><>0<>0<>c545e07fdccf4def95b20616916d27a1<>res://.godot/imported/tf_jungle_a1.png-56b54c5e22e1a16e7dcf7393010bb518.ctex::
+tf_jungle_a2.png::CompressedTexture2D::3474087402479243896::1499743000::1776592372::1::::<><><>0<>0<>c666c3ae3390185c12a0665b81160597<>res://.godot/imported/tf_jungle_a2.png-075c445b8765f6a3c12d2a95d741727b.ctex::
+tf_jungle_a5.png::CompressedTexture2D::8919436862902031049::1499742308::1776592372::1::::<><><>0<>0<>fa0b71e11c30c12336d3156852464592<>res://.godot/imported/tf_jungle_a5.png-34fb356941c69d99fdeea8dfdb4ea8a1.ctex::
+tf_jungle_b.png::CompressedTexture2D::4591033351351867047::1499742296::1776592372::1::::<><><>0<>0<>9839292b42b73d56ecd16b45d2a8174c<>res://.godot/imported/tf_jungle_b.png-56b2c4f9c8acfd8907e21a3bfa2693fc.ctex::
+::res://Assets /NPC/::1776591463
+Generic Children NPCs A.png::CompressedTexture2D::6392980940131682411::1776589678::1776592372::1::::<><><>0<>0<>07847b8bdba964eb5500a035da6a429e<>res://.godot/imported/Generic Children NPCs A.png-00734326940bec7270d6b0dd1f2c9f93.ctex::
+Generic Children NPCs.png::CompressedTexture2D::3683170677314628346::1776589676::1776592372::1::::<><><>0<>0<>9960021a52ce3cbe8987f8a1d9a7d43d<>res://.godot/imported/Generic Children NPCs.png-78c29c2535a7fa8654834bb5ff917273.ctex::
+Generic Female NPCs A.png::CompressedTexture2D::8137081534327417695::1776589674::1776592372::1::::<><><>0<>0<>b1ad0b94be6b02db484dc1696287ff65<>res://.godot/imported/Generic Female NPCs A.png-302216bd7e00e50b2fa1a1bcf54b7a17.ctex::
+Generic Female NPCs.png::CompressedTexture2D::1491353262551721134::1776589671::1776592372::1::::<><><>0<>0<>a5d67c058ff8049fc6ef1000e70dd6a0<>res://.godot/imported/Generic Female NPCs.png-2174926ebf08a3fbf095af25925468a7.ctex::
+Generic Male NPCs A.png::CompressedTexture2D::7874859452023496450::1776589668::1776592372::1::::<><><>0<>0<>b947b51490c0a13dd022895b8dc8a702<>res://.godot/imported/Generic Male NPCs A.png-0e4c474f4a8ba9f4f34461bb214c868c.ctex::
+Generic Male NPCs.png::CompressedTexture2D::4619449808455966412::1776589651::1776592372::1::::<><><>0<>0<>b9ca17e10712e230e095e12beff134a7<>res://.godot/imported/Generic Male NPCs.png-530d59b68a7c85871cbac45216b9f005.ctex::
+::res://Assets /Ui/::1776591527
 ::res://core/::1775907807
-::res://core/autoloads/::1776391006
+::res://core/autoloads/::1776590280
 game_dat.gd::GDScript::6785751459191463270::1775910113::0::1::::<>Node<><>0<>0<><>::
 inven_dat.gd::GDScript::5928431165169687140::1776391006::0::1::::<>Node<><>0<>0<><>::
 logic_turn.gd::GDScript::4843988046167547507::1775910113::0::1::::<>Node<><>0<>0<><>::
-party_dat.gd::GDScript::2149752931417200989::1775982137::0::1::::<>Node<><>0<>0<><>::
-::res://core/resources/::1776394238
-char_stat.gd::GDScript::3622484580024009056::1776394238::0::1::::CharacterStats<>Resource<><>0<>0<><>::
+party_dat.gd::GDScript::2149752931417200989::1776590280::0::1::::<>Node<><>0<>0<><>::
+::res://core/resources/::1776416614
+char_stat.gd::GDScript::3622484580024009056::1776416614::0::1::::CharacterStats<>Resource<><>0<>0<><>::
 enemy_stat.gd::GDScript::3276451306711587116::1776394238::0::1::::enemystat<>Resource<><>0<>0<><>::
 item_dat.gd::GDScript::8463911372240995300::1776391006::0::1::::ItemData<>Resource<><>0<>0<><>::
 skill_dat.gd::GDScript::4456194023122548191::1776394141::0::1::::SkillDat<>Resource<><>0<>0<><>::
 ::res://data/::1775957686
-::res://data/characters/::1776394517
+::res://data/characters/::1776590280
 ijat.tres::Resource/CharacterStats::6775179780459495595::1776345865::0::1::::<><><>0<>0<><>::uid://bru016kf7qe6s::::res://core/resources/char_stat.gd<>uid://b4qu4nmoeircx::::res://core/resources/skill_dat.gd
 kipli.tres::Resource/CharacterStats::4001914700140984559::1776345865::0::1::::<><><>0<>0<><>::uid://bru016kf7qe6s::::res://core/resources/char_stat.gd<>uid://b4qu4nmoeircx::::res://core/resources/skill_dat.gd
+kirara.tres::Resource/CharacterStats::1027796058862357256::1776590280::0::1::::<><><>0<>0<><>::uid://csvpdofifu46k::::res://data/skill/kirara/skill.tres<>uid://bru016kf7qe6s::::res://core/resources/char_stat.gd<>uid://wo5bud0drgdv::::res://data/skill/kirara/ultimate.tres
 malik.tres::Resource/CharacterStats::7267374299707210108::1776345865::0::1::::<><><>0<>0<><>::uid://bru016kf7qe6s::::res://core/resources/char_stat.gd<>uid://b4qu4nmoeircx::::res://core/resources/skill_dat.gd
 mc.tres::Resource/CharacterStats::2108783565118581538::1776394517::0::1::::<><><>0<>0<><>::uid://bf1glmjq0yvlo::::res://data/skill/mc/skill.tres<>uid://bru016kf7qe6s::::res://core/resources/char_stat.gd<>uid://3stbuhuwmifw::::res://data/skill/mc/ultimate.tres
 nunung.tres::Resource/CharacterStats::825624110127718694::1776345865::0::1::::<><><>0<>0<><>::uid://bru016kf7qe6s::::res://core/resources/char_stat.gd<>uid://b4qu4nmoeircx::::res://core/resources/skill_dat.gd
 ridwan.tres::Resource/CharacterStats::1534761178023596599::1776345865::0::1::::<><><>0<>0<><>::uid://bru016kf7qe6s::::res://core/resources/char_stat.gd<>uid://b4qu4nmoeircx::::res://core/resources/skill_dat.gd
-timun.tres::Resource/CharacterStats::1027796058862357256::1776345865::0::1::::<><><>0<>0<><>::uid://bru016kf7qe6s::::res://core/resources/char_stat.gd<>uid://b4qu4nmoeircx::::res://core/resources/skill_dat.gd
 ::res://data/enemies/::1776394517
 keroco2.tres::Resource/enemystat::4053351578456220094::1776394517::0::1::::<><><>0<>0<><>::uid://bmxew6ryek11a::::res://core/resources/enemy_stat.gd<>uid://cc223nkgaqoue::::res://data/skill/kroco/skill.tres<>uid://c74jq7asd6afj::::res://data/skill/kroco/ulti.tres
 kroco1.tres::Resource/enemystat::1621815414721436775::1776394517::0::1::::<><><>0<>0<><>::uid://cc223nkgaqoue::::res://data/skill/kroco/skill.tres<>uid://bmxew6ryek11a::::res://core/resources/enemy_stat.gd<>uid://c74jq7asd6afj::::res://data/skill/kroco/ulti.tres
-::res://data/skill/::1776394357
+::res://data/skill/::1776416473
+::res://data/skill/kirara/::1776590280
+skill.tres::Resource/SkillDat::6080509341401161804::1776590280::0::1::::<><><>0<>0<><>::uid://b4qu4nmoeircx::::res://core/resources/skill_dat.gd
+ultimate.tres::Resource/SkillDat::1574880200412434091::1776416614::0::1::::<><><>0<>0<><>::uid://b4qu4nmoeircx::::res://core/resources/skill_dat.gd
 ::res://data/skill/kroco/::1776394517
 skill.tres::Resource/SkillDat::4970647313580766756::1776394517::0::1::::<><><>0<>0<><>::uid://b4qu4nmoeircx::::res://core/resources/skill_dat.gd
 ulti.tres::Resource/SkillDat::7079328025878618267::1776394517::0::1::::<><><>0<>0<><>::uid://b4qu4nmoeircx::::res://core/resources/skill_dat.gd
@@ -40,8 +63,8 @@ explorer.tscn::PackedScene::1556778230918769198::1775981501::0::1::::<><><>0<>0<
 ::res://levels/::1775907904
 ::res://levels/map_01_forest/::1775907904
 ::res://systems/::1775907918
-::res://systems/battle_system/::1776395421
+::res://systems/battle_system/::1776590280
 BattelUi.tscn::PackedScene::6086902407409757568::1776391636::0::1::::<><><>0<>0<><>::uid://bdf3d4rxbrkbl::::res://systems/battle_system/battel_ui.gd
 battel_arena.gd::GDScript::8506526124451217115::1776395421::0::1::::<>Control<><>0<>0<><>::
-battel_arena.tscn::PackedScene::6977880254841875458::1776394597::0::1::::<><><>0<>0<><>::uid://dtgviijjt66vn::::res://systems/battle_system/battel_arena.gd
+battel_arena.tscn::PackedScene::6977880254841875458::1776590280::0::1::::<><><>0<>0<><>::uid://dtgviijjt66vn::::res://systems/battle_system/battel_arena.gd
 battel_ui.gd::GDScript::2609016087042532877::1776391636::0::1::::<>VBoxContainer<><>0<>0<><>::

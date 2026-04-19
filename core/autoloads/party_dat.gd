@@ -12,7 +12,9 @@ const MAX_PARTY_SIZE: int = 4
 func _ready():
 	# Memasukkan MC sebagai anggota pertama secara otomatis
 	var mc_data = preload("res://data/characters/mc.tres")
-	
+	var teman_1 = preload("res://data/characters/kirara.tres")
+	add_to_roster(teman_1)
+	add_to_active_party(teman_1)
 	add_to_roster(mc_data)
 	add_to_active_party(mc_data)
 

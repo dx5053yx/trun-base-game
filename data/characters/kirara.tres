@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CharacterStats" format=3 uid="uid://ov4weqaves7q"]
+
+[ext_resource type="Resource" uid="uid://csvpdofifu46k" path="res://data/skill/kirara/skill.tres" id="1_ugq6n"]
+[ext_resource type="Script" uid="uid://bru016kf7qe6s" path="res://core/resources/char_stat.gd" id="2_3sh6j"]
+[ext_resource type="Texture2D" uid="uid://b5p55w8eohp4k" path="res://icon.svg" id="3_3sh6j"]
+[ext_resource type="Resource" uid="uid://wo5bud0drgdv" path="res://data/skill/kirara/ultimate.tres" id="3_aq428"]
+
+[resource]
+script = ExtResource("2_3sh6j")
+character_name = "kirara"
+normal_skill = ExtResource("1_ugq6n")
+ultimate_skill = ExtResource("3_aq428")
+sprite_texture = ExtResource("3_3sh6j")
+metadata/_custom_type_script = "uid://bru016kf7qe6s"

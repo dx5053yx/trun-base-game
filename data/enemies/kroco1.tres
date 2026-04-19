@@ -2,6 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://cc223nkgaqoue" path="res://data/skill/kroco/skill.tres" id="1_38nr5"]
 [ext_resource type="Script" uid="uid://bmxew6ryek11a" path="res://core/resources/enemy_stat.gd" id="1_e42y5"]
+[ext_resource type="Texture2D" uid="uid://b5p55w8eohp4k" path="res://icon.svg" id="3_bvjje"]
 [ext_resource type="Resource" uid="uid://c74jq7asd6afj" path="res://data/skill/kroco/ulti.tres" id="3_mgevs"]
 
 [resource]
@@ -9,4 +10,5 @@ script = ExtResource("1_e42y5")
 character_name = "keroco1"
 normal_skill = ExtResource("1_38nr5")
 ultimate_skill = ExtResource("3_mgevs")
+sprite_texture = ExtResource("3_bvjje")
 metadata/_custom_type_script = "uid://bmxew6ryek11a"

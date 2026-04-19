@@ -20,3 +20,6 @@ class_name enemystat
 
 @export var normal_skill: SkillDat
 @export var ultimate_skill: SkillDat
+@export var sprite_texture: Texture2D
+# Array untuk menampung efek-efek yang sedang aktif di tubuh karakter ini
+var active_statuses: Array[Dictionary] = []

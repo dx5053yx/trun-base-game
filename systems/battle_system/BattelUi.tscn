@@ -13,3 +13,6 @@ layout_mode = 2
 
 [node name="energi" type="ProgressBar" parent="." unique_id=418753902]
 layout_mode = 2
+
+[node name="SpriteKarakter" type="TextureRect" parent="." unique_id=1744835040]
+layout_mode = 2
