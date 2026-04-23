@@ -17,7 +17,10 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-PartyDat="*uid://5vmd75xhjbyr"
+PartyDat="*uid://bd5cdjlrqvux8"
+GameDat="*uid://c3xclnnv3xp0a"
+LogicTurn="*uid://cbap1mmro8wtn"
+InvenDat="*uid://dl857lqr0aytx"
 
 [physics]
 
@@ -26,3 +29,5 @@ PartyDat="*uid://5vmd75xhjbyr"
 [rendering]
 
 rendering_device/driver.windows="d3d12"
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

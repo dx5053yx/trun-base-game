@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dg3c8n7k345l"
-path="res://.godot/imported/Orc.png-e1cc2c3c1660bf9927d4fea9a81e40cf.ctex"
+uid="uid://bsqfjvcto2f3w"
+path="res://.godot/imported/Generic Children NPCs.png-0c16954f951418551544682da9a7f8ac.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets /enemy/Orc.png"
-dest_files=["res://.godot/imported/Orc.png-e1cc2c3c1660bf9927d4fea9a81e40cf.ctex"]
+source_file="res://assets/NPC/Generic Children NPCs.png"
+dest_files=["res://.godot/imported/Generic Children NPCs.png-0c16954f951418551544682da9a7f8ac.ctex"]
 
 [params]
 

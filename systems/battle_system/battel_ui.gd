@@ -2,8 +2,8 @@ extends VBoxContainer
 
 @onready var name_label = $Label
 @onready var hp_bar = $ProgressBar
-@onready var energy_bar = $energi # Panggil bar energi baru
-@onready var sprite_karakter = $SpriteKarakter # Tambahkan ini di atas
+@onready var energy_bar = $energi 
+@onready var sprite_karakter = $SpriteKarakter 
 var stats = null
 
 func setup(data_stats):
@@ -18,7 +18,7 @@ func setup(data_stats):
 		energy_bar.max_value = stats.max_energy
 		energy_bar.value = stats.current_energy
 	else:
-		energy_bar.hide() # Musuh tidak perlu kelihatan energinya
+		energy_bar.hide() 
 
 func update_hp():
 	hp_bar.value = stats.current_hp

@@ -1,13 +1,16 @@
-[gd_scene format=3 uid="uid://c6oewytq8cxre"]
+[gd_scene format=3 uid="uid://ktmqxc0y6l8u"]
 
-[ext_resource type="Script" uid="uid://dtgviijjt66vn" path="res://systems/battle_system/battel_arena.gd" id="1_22jws"]
+[ext_resource type="Script" uid="uid://dnt47enugivbw" path="res://systems/battle_system/battel_arena.gd" id="1_22jws"]
 
 [node name="BattelArena" type="Control" unique_id=1916114402]
 layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_right = -1152.0
 offset_bottom = -648.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_22jws")
 
 [node name="background" type="TextureRect" parent="." unique_id=857072806]
@@ -31,52 +34,100 @@ offset_bottom = 434.0
 
 [node name="booton" type="Panel" parent="." unique_id=722201017]
 layout_mode = 0
-offset_left = 515.0
-offset_top = 551.0
-offset_right = 708.0
-offset_bottom = 615.0
+offset_left = 608.0
+offset_top = 496.0
+offset_right = 801.0
+offset_bottom = 560.0
+metadata/_edit_group_ = true
 
 [node name="acction" type="VBoxContainer" parent="booton" unique_id=234674800]
-layout_mode = 0
-offset_left = 110.0
-offset_top = 16.0
-offset_right = 191.0
-offset_bottom = 56.0
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -66.0
+offset_right = 2.0
+grow_horizontal = 2
+grow_vertical = 0
 
 [node name="basic_atk" type="Button" parent="booton/acction" unique_id=1937568856]
 layout_mode = 2
-text = "basik_atk"
+text = "Serang"
+
+[node name="skill" type="Button" parent="booton/acction" unique_id=1111000001]
+layout_mode = 2
+text = "Skill"
 
 [node name="SkillMenu" type="VBoxContainer" parent="booton" unique_id=1123983832]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -15.509001
-anchor_top = -9.416
-anchor_right = -15.509001
-anchor_bottom = -9.416
-offset_left = 3001.237
-offset_top = 620.624
-offset_right = 3098.854
-offset_bottom = 655.792
-tooltip_text = "tes"
-
-[node name="skill" type="Button" parent="booton/SkillMenu" unique_id=2066805455]
-layout_mode = 2
-text = "skill"
+visible = false
+layout_mode = 0
+offset_top = -120.0
+offset_right = 193.0
+offset_bottom = -4.0
 
 [node name="TargetMenu" type="VBoxContainer" parent="booton" unique_id=146116390]
+visible = false
 layout_mode = 0
-offset_left = -84.0
-offset_top = -75.0
-offset_right = -44.0
-offset_bottom = -35.0
+offset_left = -200.0
+offset_top = -120.0
+offset_right = -4.0
+offset_bottom = -4.0
 
 [node name="SP" type="Label" parent="." unique_id=2060974642]
 layout_mode = 0
-offset_left = 141.0
-offset_top = 98.0
-offset_right = 181.0
-offset_bottom = 121.0
+offset_left = 611.0
+offset_top = 469.0
+offset_right = 751.0
+offset_bottom = 492.0
+text = "SP: 3/5"
+
+[node name="TurnOrderBar" type="HBoxContainer" parent="." unique_id=469200352]
+layout_mode = 0
+offset_left = 380.0
+offset_top = 10.0
+offset_right = 760.0
+offset_bottom = 64.0
+
+[node name="BattleLog" type="RichTextLabel" parent="." unique_id=2111000002]
+layout_mode = 0
+offset_left = 815.0
+offset_top = 464.0
+offset_right = 1140.0
+offset_bottom = 564.0
+bbcode_enabled = true
+text = "[color=gray]-- Log Battle --[/color]"
+scroll_following = true
+
+[node name="ResultPanel" type="Panel" parent="." unique_id=2111000003]
+visible = false
+layout_mode = 0
+offset_left = 326.0
+offset_top = 199.0
+offset_right = 826.0
+offset_bottom = 449.0
+
+[node name="VBox" type="VBoxContainer" parent="ResultPanel" unique_id=2111000004]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ResultLabel" type="Label" parent="ResultPanel/VBox" unique_id=2111000005]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "RESULT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ResultButton" type="Button" parent="ResultPanel/VBox" unique_id=2111000006]
+layout_mode = 2
+text = "Ulangi Battle"
 
 [connection signal="pressed" from="booton/acction/basic_atk" to="." method="_on_basic_atk_pressed"]
-[connection signal="pressed" from="booton/SkillMenu/skill" to="." method="_on_skill_pressed"]
+[connection signal="pressed" from="booton/acction/skill" to="." method="_on_skill_pressed"]
+[connection signal="pressed" from="ResultPanel/VBox/ResultButton" to="." method="_on_result_button_pressed"]

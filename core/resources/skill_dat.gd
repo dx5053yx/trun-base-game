@@ -17,7 +17,7 @@ enum SkillEffect { DAMAGE, HEAL, BUFF, DEBUFF }
 @export var target_type: TargetType = TargetType.SINGLE_ENEMY
 @export var power: int = 15 
 
-# --- SISTEM BIAYA BARU ---
+# --- SISTEM BIAYA ---
 @export var is_ultimate: bool = false # Centang ini di Inspector jika ini skill Ultimate
 @export var sp_cost: int = 1          # Biaya SP jika ini skill biasa
 @export var energy_cost: int = 100    # Biaya Energy jika ini Ultimate

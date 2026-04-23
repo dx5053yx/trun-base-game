@@ -4,8 +4,7 @@
 
 [resource]
 script = ExtResource("1_30wl2")
-skill_name = "basic atak"
+skill_name = "peler"
 description = "mengakibatkat damage"
-target_type = 1
 power = 27
 metadata/_custom_type_script = "uid://b4qu4nmoeircx"

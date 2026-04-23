@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ktf5x2kdxf7x"
-path="res://.godot/imported/#1 - Transparent Icons.png-5ffee75256c51cf7e6bfae919419731c.ctex"
+uid="uid://cbwwm3ch2h2tx"
+path="res://.godot/imported/tf_jungle_a1.png-4ec4a30b2ec0a274cad753464c91fc1f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets /item/#1 - Transparent Icons.png"
-dest_files=["res://.godot/imported/#1 - Transparent Icons.png-5ffee75256c51cf7e6bfae919419731c.ctex"]
+source_file="res://assets/map/fores/tf_jungle_a1.png"
+dest_files=["res://.godot/imported/tf_jungle_a1.png-4ec4a30b2ec0a274cad753464c91fc1f.ctex"]
 
 [params]
 

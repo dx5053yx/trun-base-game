@@ -1,3 +1,4 @@
+HBoxContainer
 TextureRect
 VBoxContainer
 Label
@@ -5,7 +6,6 @@ ProgressBar
 Control
 Button
 Panel
-HBoxContainer
 Camera2D
 Sprite2D
 CharacterBody2D

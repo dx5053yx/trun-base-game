@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://viomuebcqn63"
-path="res://.godot/imported/Generic Female NPCs.png-2174926ebf08a3fbf095af25925468a7.ctex"
+uid="uid://dkgv1xbvknkhe"
+path="res://.godot/imported/Generic Male NPCs A.png-b8baf00132b7cbf2099294748a1d60dc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets /NPC/Generic Female NPCs.png"
-dest_files=["res://.godot/imported/Generic Female NPCs.png-2174926ebf08a3fbf095af25925468a7.ctex"]
+source_file="res://assets/NPC/Generic Male NPCs A.png"
+dest_files=["res://.godot/imported/Generic Male NPCs A.png-b8baf00132b7cbf2099294748a1d60dc.ctex"]
 
 [params]
 
