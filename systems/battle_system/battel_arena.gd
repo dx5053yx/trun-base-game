@@ -24,7 +24,9 @@ var turn_queue: Array = []
 var active_enemies: Array = []
 var active_heroes: Array = []
 
+# =============================================================
 #  SETUP
+# =============================================================
 
 func _ready():
 	result_panel.hide()
@@ -33,10 +35,14 @@ func _ready():
 func setup_battle():
 	active_heroes = PartyDat.active_party.duplicate()
 
-	var musuh_1 = preload("res://data/enemies/kroco1.tres")
-	var musuh_2 = preload("res://data/enemies/keroco2.tres")
-	active_enemies.append(musuh_1.duplicate())
-	active_enemies.append(musuh_2.duplicate())
+	# Baca musuh dari GameDat jika ada, fallback ke kroco1+2 untuk testing
+	if GameDat.has_pending_encounter():
+		active_enemies = GameDat.consume_encounter()
+	else:
+		var musuh_1 = preload("res://data/enemies/kroco1.tres")
+		var musuh_2 = preload("res://data/enemies/keroco2.tres")
+		active_enemies.append(musuh_1.duplicate())
+		active_enemies.append(musuh_2.duplicate())
 
 	for hero in active_heroes:
 		turn_queue.append(hero)
@@ -57,7 +63,9 @@ func spawn_ui(battler_stats, is_hero: bool):
 		enemy_positions.add_child(ui_instance)
 	ui_instance.setup(battler_stats)
 
+# =============================================================
 #  UI HELPERS
+# =============================================================
 
 func tambah_log(teks: String):
 	battle_log.append_text("\n" + teks)
@@ -81,7 +89,9 @@ func update_turn_bar():
 			icon.modulate = Color(1, 0.4, 0.4)
 		turn_order_bar.add_child(icon)
 
+# =============================================================
 #  TURN SYSTEM
+# =============================================================
 
 func sort_turn_queue():
 	turn_queue.sort_custom(func(a, b): return a.speed > b.speed)
@@ -141,8 +151,9 @@ func end_turn():
 	update_turn_bar()
 	start_turn()
 
+# =============================================================
 #  HASIL BATTLE
-
+# =============================================================
 
 func _tampil_hasil(menang: bool):
 	action_menu.hide()
@@ -157,9 +168,14 @@ func _tampil_hasil(menang: bool):
 	result_panel.show()
 
 func _on_result_button_pressed():
-	get_tree().reload_current_scene()
+	if GameDat.return_scene != "":
+		get_tree().change_scene_to_file(GameDat.return_scene)
+	else:
+		get_tree().reload_current_scene()
 
+# =============================================================
 #  ENEMY AI
+# =============================================================
 
 func enemy_turn():
 	await get_tree().create_timer(1.0).timeout
@@ -167,7 +183,9 @@ func enemy_turn():
 		var target = active_heroes.pick_random()
 		perform_attack(current_battler, target)
 
+# =============================================================
 #  BASIC ATTACK
+# =============================================================
 
 func _on_basic_atk_pressed() -> void:
 	action_menu.hide()
@@ -214,7 +232,9 @@ func perform_attack(attacker, target):
 	cek_kematian(target)
 	end_turn()
 
+# =============================================================
 #  SKILL SYSTEM
+# =============================================================
 
 func _on_skill_pressed():
 	action_menu.hide()
@@ -266,7 +286,7 @@ func _siapkan_skill(skill_data: SkillDat):
 		ui_nodes[current_battler].update_energy()
 	skill_menu.hide()
 
-	# Routing target berdasarkan enum 
+	# Routing target berdasarkan enum (bukan angka magic)
 	match skill_data.target_type:
 		SkillDat.TargetType.SINGLE_ENEMY:
 			buka_menu_target(active_enemies, func(t): _eksekusi_efek_skill(skill_data, t))
@@ -294,7 +314,7 @@ func _eksekusi_skill_aoe(skill_data: SkillDat, daftar_target: Array):
 		_terapkan_efek(skill_data, target)
 	end_turn()
 
-# Logika efek murni 
+# Logika efek murni — TIDAK memanggil end_turn
 func _terapkan_efek(skill_data: SkillDat, target):
 	match skill_data.effect_type:
 		SkillDat.SkillEffect.DAMAGE:
@@ -330,8 +350,9 @@ func _terapkan_efek(skill_data: SkillDat, target):
 			elif status.stat == 4: target.speed += jumlah
 			elif status.stat == 5: target.defense += jumlah
 
-
+# =============================================================
 #  TARGET MENU
+# =============================================================
 
 func buka_menu_target(daftar_target: Array, fungsi_eksekusi: Callable):
 	target_menu.show()
@@ -355,7 +376,9 @@ func buka_menu_target(daftar_target: Array, fungsi_eksekusi: Callable):
 	)
 	target_menu.add_child(back)
 
+# =============================================================
 #  CEK KEMATIAN
+# =============================================================
 
 func cek_kematian(target):
 	if target.current_hp > 0:

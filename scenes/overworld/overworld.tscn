@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://opjl55d42gt3"]
+
+[ext_resource type="Resource" uid="uid://xdvce0n8itdf" path="res://data/enemies/kroco1.tres" id="1_n3lcv"]
+[ext_resource type="Resource" uid="uid://bx0qdxgovv7pi" path="res://data/enemies/keroco2.tres" id="2_jvs31"]
+
+[node name="Overworld" type="Node2D" unique_id=187135983]
+
+[node name="Background" type="ColorRect" parent="." unique_id=1227761152]
+offset_left = -2000.0
+offset_top = -2000.0
+offset_right = 2000.0
+offset_bottom = 2000.0
+color = Color(0.18, 0.32, 0.18, 1)
+
+[node name="Player" parent="." unique_id=351022852]
+position = Vector2(0, 0)
+
+[node name="Enemies" type="Node2D" parent="." unique_id=1755603117]
+
+[node name="KrocoA" parent="Enemies" unique_id=447046842]
+position = Vector2(200, 80)
+enemy_data_1 = ExtResource("1_n3lcv")
+enemy_data_2 = ExtResource("2_jvs31")
+
+[node name="KrocoB" parent="Enemies" unique_id=1100012398]
+position = Vector2(-150, 180)
+enemy_data_1 = ExtResource("1_n3lcv")

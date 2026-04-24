@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://bp6rihjd6hu16"]
+
+[ext_resource type="Script" uid="uid://bnxebkkdt0ne0" path="res://scenes/overworld/player.gd" id="1_player"]
+[ext_resource type="Texture2D" uid="uid://b5p55w8eohp4k" path="res://icon.svg" id="2_b5l7a"]
+
+[sub_resource type="CircleShape2D" id="1_shape"]
+radius = 14.0
+
+[node name="Player" type="CharacterBody2D" unique_id=799189758]
+position = Vector2(13, 12)
+script = ExtResource("1_player")
+metadata/_edit_group_ = true
+
+[node name="Sprite" type="ColorRect" parent="." unique_id=1062666982]
+offset_left = -14.0
+offset_top = -14.0
+offset_right = 14.0
+offset_bottom = 14.0
+color = Color(0.2, 0.6, 1, 1)
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=1839385074]
+shape = SubResource("1_shape")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1114797134]
+zoom = Vector2(2, 2)
+position_smoothing_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=790763196]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_b5l7a")

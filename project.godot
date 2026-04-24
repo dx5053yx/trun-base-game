@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="New Game Project"
-run/main_scene="uid://c6oewytq8cxre"
+run/main_scene="uid://overworld_scene_001"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -21,6 +21,26 @@ PartyDat="*uid://bd5cdjlrqvux8"
 GameDat="*uid://c3xclnnv3xp0a"
 LogicTurn="*uid://cbap1mmro8wtn"
 InvenDat="*uid://dl857lqr0aytx"
+SceneTransition="*res://systems/transition/scene_transition.tscn"
+
+[input]
+
+maju={
+"deadzone": 0.2,
+"events": []
+}
+mundur={
+"deadzone": 0.2,
+"events": []
+}
+kiri={
+"deadzone": 0.2,
+"events": []
+}
+kanan={
+"deadzone": 0.2,
+"events": []
+}
 
 [physics]
 
