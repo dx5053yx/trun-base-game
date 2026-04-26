@@ -120,6 +120,16 @@ func start_turn():
 
 		cek_kematian(current_battler)
 		if current_battler.current_hp <= 0:
+			# Battler sudah diremove dari turn_queue oleh cek_kematian.
+			# Jangan panggil end_turn() biasa karena itu akan pop_front battler yg sudah tidak ada.
+			await get_tree().create_timer(0.5).timeout
+			if active_heroes.size() == 0:
+				_tampil_hasil(false)
+			elif active_enemies.size() == 0:
+				_tampil_hasil(true)
+			else:
+				update_turn_bar()
+				start_turn()
 			return
 
 		status.durasi -= 1
@@ -162,10 +172,25 @@ func _tampil_hasil(menang: bool):
 	if menang:
 		result_label.text = "VICTORY!"
 		tambah_log("[color=green]Semua musuh telah dikalahkan![/color]")
+		# Setelah menang: restore HP semua hero ke kondisi sebelum battle
+		_restore_party_hp()
 	else:
 		result_label.text = "GAME OVER"
 		tambah_log("[color=red]Party telah hancur...[/color]")
+		# Setelah kalah: reset HP ke max (respawn)
+		_restore_party_hp(true)
 	result_panel.show()
+
+func _restore_party_hp(full_reset: bool = false):
+	for hero in PartyDat.active_party:
+		if full_reset:
+			hero.current_hp = hero.max_hp
+			hero.current_energy = 0
+		else:
+			# Victory: pulihkan sebagian HP (30% dari max) agar ada konsekuensi
+			var heal = int(hero.max_hp * 0.3)
+			hero.current_hp = min(hero.current_hp + heal, hero.max_hp)
+		hero.active_statuses.clear()
 
 func _on_result_button_pressed():
 	if GameDat.return_scene != "":

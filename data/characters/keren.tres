@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CharacterStats" format=3 uid="uid://v4pj68lny6tf"]
+
+[ext_resource type="Resource" uid="uid://caqkqryjorsbv" path="res://data/skill_set/keren/skill.tres" id="1_75ck0"]
+[ext_resource type="Script" uid="uid://bru016kf7qe6s" path="res://core/resources/char_stat.gd" id="2_tooth"]
+[ext_resource type="Texture2D" uid="uid://b5p55w8eohp4k" path="res://icon.svg" id="3_g8gke"]
+[ext_resource type="Resource" uid="uid://hxi663helqe" path="res://data/skill_set/keren/ulti.tres" id="4_d6iw5"]
+
+[resource]
+script = ExtResource("2_tooth")
+character_name = "keren"
+normal_skill = ExtResource("1_75ck0")
+ultimate_skill = ExtResource("4_d6iw5")
+sprite_texture = ExtResource("3_g8gke")
+metadata/_custom_type_script = "uid://bru016kf7qe6s"

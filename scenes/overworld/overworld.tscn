@@ -1,27 +1,94 @@
 [gd_scene format=3 uid="uid://opjl55d42gt3"]
 
-[ext_resource type="Resource" uid="uid://xdvce0n8itdf" path="res://data/enemies/kroco1.tres" id="1_n3lcv"]
-[ext_resource type="Resource" uid="uid://bx0qdxgovv7pi" path="res://data/enemies/keroco2.tres" id="2_jvs31"]
+[ext_resource type="Script" path="res://scenes/overworld/overworld.gd" id="1_owscript"]
+[ext_resource type="PackedScene" uid="uid://bp6rihjd6hu16" path="res://scenes/overworld/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" uid="uid://enemy_ow_scene_001" path="res://scenes/overworld/enemy_overworld.tscn" id="3_enemy"]
+[ext_resource type="Resource" uid="uid://xdvce0n8itdf" path="res://data/enemies/kroco1.tres" id="4_kroco1"]
+[ext_resource type="Resource" uid="uid://bx0qdxgovv7pi" path="res://data/enemies/keroco2.tres" id="5_kroco2"]
 
-[node name="Overworld" type="Node2D" unique_id=187135983]
+[node name="Overworld" type="Node2D"]
+script = ExtResource("1_owscript")
 
-[node name="Background" type="ColorRect" parent="." unique_id=1227761152]
+[node name="Background" type="ColorRect" parent="."]
 offset_left = -2000.0
 offset_top = -2000.0
 offset_right = 2000.0
 offset_bottom = 2000.0
 color = Color(0.18, 0.32, 0.18, 1)
 
-[node name="Player" parent="." unique_id=351022852]
+[node name="Player" parent="." instance=ExtResource("2_player")]
 position = Vector2(0, 0)
 
-[node name="Enemies" type="Node2D" parent="." unique_id=1755603117]
+[node name="Enemies" type="Node2D" parent="."]
 
-[node name="KrocoA" parent="Enemies" unique_id=447046842]
+[node name="KrocoA" parent="Enemies" instance=ExtResource("3_enemy")]
 position = Vector2(200, 80)
-enemy_data_1 = ExtResource("1_n3lcv")
-enemy_data_2 = ExtResource("2_jvs31")
+enemy_data_1 = ExtResource("4_kroco1")
+enemy_data_2 = ExtResource("5_kroco2")
 
-[node name="KrocoB" parent="Enemies" unique_id=1100012398]
+[node name="KrocoB" parent="Enemies" instance=ExtResource("3_enemy")]
 position = Vector2(-150, 180)
-enemy_data_1 = ExtResource("1_n3lcv")
+enemy_data_1 = ExtResource("4_kroco1")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="PartyHP" type="Label" parent="HUD"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 600.0
+offset_bottom = 30.0
+text = ""
+theme_override_font_sizes/font_size = 12
+
+[node name="PausePanel" type="CanvasLayer" parent="."]
+layer = 20
+
+[node name="BG" type="ColorRect" parent="PausePanel"]
+layout_mode = 0
+offset_left = 376.0
+offset_top = 174.0
+offset_right = 776.0
+offset_bottom = 474.0
+color = Color(0.05, 0.05, 0.1, 0.9)
+
+[node name="VBox" type="VBoxContainer" parent="PausePanel"]
+layout_mode = 0
+offset_left = 426.0
+offset_top = 200.0
+offset_right = 726.0
+offset_bottom = 450.0
+alignment = 1
+
+[node name="PauseTitle" type="Label" parent="PausePanel/VBox"]
+layout_mode = 2
+text = "PAUSE"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 24
+
+[node name="SaveInfo" type="Label" parent="PausePanel/VBox"]
+layout_mode = 2
+text = ""
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 12
+modulate = Color(0.5, 1, 0.5, 1)
+
+[node name="BtnResume" type="Button" parent="PausePanel/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(240, 44)
+text = "Lanjutkan"
+
+[node name="BtnSave" type="Button" parent="PausePanel/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(240, 44)
+text = "Simpan Game"
+
+[node name="BtnMainMenu" type="Button" parent="PausePanel/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(240, 44)
+text = "Main Menu"
+
+[connection signal="pressed" from="PausePanel/VBox/BtnResume" to="." method="_on_btn_resume_pressed"]
+[connection signal="pressed" from="PausePanel/VBox/BtnSave" to="." method="_on_btn_save_pressed"]
+[connection signal="pressed" from="PausePanel/VBox/BtnMainMenu" to="." method="_on_btn_main_menu_pressed"]

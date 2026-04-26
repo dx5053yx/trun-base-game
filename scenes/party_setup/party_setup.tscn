@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://party_setup_001"]
+
+[ext_resource type="Script" path="res://scenes/party_setup/party_setup.gd" id="1_ps"]
+
+[node name="PartySetup" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ps")
+
+[node name="BG" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.08, 0.08, 0.12, 1)
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 16.0
+offset_right = 1152.0
+offset_bottom = 56.0
+theme_override_font_sizes/font_size = 28
+text = "Atur Komposisi Party"
+horizontal_alignment = 1
+
+[node name="Main" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 64.0
+offset_right = 1128.0
+offset_bottom = 624.0
+
+[node name="Top" type="HBoxContainer" parent="Main"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Left" type="VBoxContainer" parent="Main/Top"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LeftTitle" type="Label" parent="Main/Top/Left"]
+layout_mode = 2
+text = "Party Aktif (max 4 orang)"
+theme_override_font_sizes/font_size = 14
+
+[node name="SlotContainer" type="HBoxContainer" parent="Main/Top/Left"]
+layout_mode = 2
+size_flags_vertical = 3
+separation = 12
+
+[node name="VSep" type="VSeparator" parent="Main/Top"]
+layout_mode = 2
+custom_minimum_size = Vector2(2, 0)
+
+[node name="Right" type="VBoxContainer" parent="Main/Top"]
+layout_mode = 2
+custom_minimum_size = Vector2(280, 0)
+
+[node name="RightTitle" type="Label" parent="Main/Top/Right"]
+layout_mode = 2
+text = "Roster Tersedia"
+theme_override_font_sizes/font_size = 14
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Main/Top/Right"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RosterContainer" type="VBoxContainer" parent="Main/Top/Right/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+separation = 4
+
+[node name="HSep" type="HSeparator" parent="Main"]
+layout_mode = 2
+
+[node name="Bottom" type="HBoxContainer" parent="Main"]
+layout_mode = 2
+alignment = 1
+
+[node name="InfoLabel" type="Label" parent="Main/Bottom"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Pilih slot lalu pilih karakter, atau klik Mulai langsung."
+horizontal_alignment = 1
+
+[node name="StartButton" type="Button" parent="Main/Bottom"]
+layout_mode = 2
+custom_minimum_size = Vector2(240, 48)
+text = "Mulai Petualangan!"
+theme_override_font_sizes/font_size = 16
+
+[connection signal="pressed" from="Main/Bottom/StartButton" to="." method="_on_start_button_pressed"]

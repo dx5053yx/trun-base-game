@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://dialogue_box_001"]
+
+[ext_resource type="Script" path="res://systems/dialogue/dialogue_box.gd" id="1_db"]
+
+[node name="DialogueBox" type="CanvasLayer"]
+layer = 64
+script = ExtResource("1_db")
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 480.0
+offset_right = 1072.0
+offset_bottom = 630.0
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+
+[node name="Speaker" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Nama"
+
+[node name="Text" type="RichTextLabel" parent="Panel/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 80)
+bbcode_enabled = true
+fit_content = true
+text = "..."
+
+[node name="LanjutHint" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "[ Tekan SPACE / ENTER untuk lanjut ]"
+horizontal_alignment = 2
+modulate = Color(0.7, 0.7, 0.7, 1)

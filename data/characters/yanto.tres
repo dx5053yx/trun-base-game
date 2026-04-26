@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CharacterStats" format=3 uid="uid://c3r7hru27yflb"]
+
+[ext_resource type="Resource" uid="uid://bsgmqf6f30imj" path="res://data/skill_set/yanto/skill.tres" id="1_1yukg"]
+[ext_resource type="Script" uid="uid://bru016kf7qe6s" path="res://core/resources/char_stat.gd" id="1_kadxh"]
+[ext_resource type="Texture2D" uid="uid://b5p55w8eohp4k" path="res://icon.svg" id="3_drifo"]
+[ext_resource type="Resource" uid="uid://3stbuhuwmifw" path="res://data/skill_set/mc/ultimate.tres" id="4_0o5sv"]
+
+[resource]
+script = ExtResource("1_kadxh")
+character_name = "yanto"
+normal_skill = ExtResource("1_1yukg")
+ultimate_skill = ExtResource("4_0o5sv")
+sprite_texture = ExtResource("3_drifo")
+metadata/_custom_type_script = "uid://bru016kf7qe6s"

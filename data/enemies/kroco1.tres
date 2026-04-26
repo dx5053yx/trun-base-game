@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="enemystat" format=3 uid="uid://xdvce0n8itdf"]
 
-[ext_resource type="Resource" uid="uid://cc223nkgaqoue" path="res://data/skill/kroco/skill.tres" id="1_38nr5"]
+[ext_resource type="Resource" uid="uid://cc223nkgaqoue" path="res://data/skill_set/kroco/skill.tres" id="1_38nr5"]
 [ext_resource type="Script" uid="uid://bmxew6ryek11a" path="res://core/resources/enemy_stat.gd" id="1_e42y5"]
 [ext_resource type="Texture2D" uid="uid://b5p55w8eohp4k" path="res://icon.svg" id="3_bvjje"]
-[ext_resource type="Resource" uid="uid://c74jq7asd6afj" path="res://data/skill/kroco/ulti.tres" id="3_mgevs"]
+[ext_resource type="Resource" uid="uid://c74jq7asd6afj" path="res://data/skill_set/kroco/ulti.tres" id="3_mgevs"]
 
 [resource]
 script = ExtResource("1_e42y5")

@@ -1,10 +1,8 @@
 extends CharacterBody2D
 
-# Data musuh yang akan dikirim ke battle saat player menyentuhnya
 @export var enemy_data_1: enemystat
-@export var enemy_data_2: enemystat  # opsional, bisa null
+@export var enemy_data_2: enemystat  
 
-# Sudah ketemu player dan sedang proses pindah scene? Jangan trigger dua kali
 var _triggered: bool = false
 
 func _on_hitbox_body_entered(body: Node) -> void:
